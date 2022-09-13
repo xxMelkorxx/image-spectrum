@@ -10,6 +10,9 @@ namespace ImageSpectrum
 	{
 		public int width, height;
 		public double[,] matrix;
+		public double[,] spectrum;
+		public Complex[,] matrixComplex;
+		public Complex[,] spectrumComplex;
 
 		public Surface(int width, int height)
 		{
@@ -66,28 +69,65 @@ namespace ImageSpectrum
 
 		}
 
-		public double[,] GetSpectrum()
+		public void FFT_2D(bool direct)
 		{
-			double[,] spectrumMatrix = new double[width, height];
-			List<Complex[]> complexRows = new List<Complex[]>();
-			List<Complex[]> complexColumns = new List<Complex[]>();
+			matrixComplex = ConvertToComplex(matrix);
+			spectrumComplex = new Complex[width, height];
+			
+			Complex[] row = new Complex[width];
+			Complex[] column = new Complex[height];
 
-			for (int i = 0; i < width; i++)
+			for (int h = 0; h < height; h++)
 			{
-				Complex[] row = new Complex[width];
-				Complex[] column = new Complex[width];
-				for (int j = 0; j < height; j++)
-				{
-					row[j] = matrix[i, j];
-					column[j] = matrix[j, i];
-				}
-				complexRows.Add(FFT.DecimationInFrequency(row, true));
-				complexColumns.Add(FFT.DecimationInFrequency(column, true));
+				for (int w = 0; w < width; w++)
+					row[w] = spectrumComplex[h, w];
+				row = FFT.DecimationInFrequency(row, direct);
+				for (int w = 0; w < width; w++)
+					spectrumComplex[w, h] = row[w];
 			}
 
+			for (int w = 0; w < width; w++)
+			{
+				for (int h = 0; h < width; h++)
+					column[h] = spectrum[w, h];
+				column = FFT.DecimationInFrequency(column, direct);
+				for (int h = 0; h < width; h++)
+					spectrumComplex[w, h] = column[h];
+			}
+		}
+
+		public static double[,] TransformSpectrum(double[,] spectrum)
+		{
+			int width = spectrum.GetLength(0);
+			int height = spectrum.GetLength(1);
+
+			double[,] spectrumTransform = new double[width, height];
+
+			return spectrumTransform;
+		}
+
+		public static Complex[,] ConvertToComplex(double [,] matrix)
+		{
+			int width = matrix.GetLength(0);
+			int height = matrix.GetLength(1);
+
+			Complex[,] matrixComplex = new Complex[width, height];
 			for (int i = 0; i < width; i++)
 				for (int j = 0; j < height; j++)
-					spectrumMatrix[i, j] = complexRows[i][j].Real + complexColumns[j][i].Real;
+					matrixComplex[i, j] = matrix[i, j];
+
+			return matrixComplex;
+		}
+
+		public static double[,] GetMagnitude(Complex[,] spectrum)
+		{
+			int width = spectrum.GetLength(0);
+			int height = spectrum.GetLength(1);
+
+			double[,] spectrumMatrix = new double[width, height];
+			for (int i = 0; i < width; i++)
+				for (int j = 0; j < height; j++)
+					spectrumMatrix[i, j] = spectrum[i, j].Magnitude;
 
 			return spectrumMatrix;
 		}

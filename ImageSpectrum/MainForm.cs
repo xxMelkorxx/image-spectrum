@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace ImageSpectrum
 {
@@ -36,8 +37,9 @@ namespace ImageSpectrum
 
 				pictBox_Image.Image = Surface.GetBitmap(surface.matrix);
 
-				double[,] spectrum = surface.GetSpectrum();
-				pictBox_ImageSpectrum.Image = Surface.GetBitmap(spectrum);
+				Complex[,] spectrum = Surface.ConvertToComplex(surface.matrix);
+				Surface.FFT_2D(spectrum, true);
+				pictBox_ImageSpectrum.Image = Surface.GetBitmap(Surface.GetMagnitude(spectrum));
 
 				Application.DoEvents();
 			});
