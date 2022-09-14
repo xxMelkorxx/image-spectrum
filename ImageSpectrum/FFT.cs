@@ -52,5 +52,35 @@ namespace ImageSpectrum
 
             return spectrum;
         }
+
+        public static Complex[,] FFT_2D(Complex[,] frame, bool direct)
+        {
+            int width = frame.GetLength(0);
+            int height = frame.GetLength(1);
+
+            Complex[,] spectrum = new Complex[width, height];
+            Complex[] row = new Complex[width];
+            Complex[] column = new Complex[height];
+
+            for (int h = 0; h < height; h++)
+            {
+                for (int w = 0; w < width; w++)
+                    row[w] = frame[h, w];
+                row = DecimationInFrequency(row, direct);
+                for (int w = 0; w < width; w++)
+                    spectrum[h, w] = row[w];
+            }
+
+            for (int w = 0; w < width; w++)
+            {
+                for (int h = 0; h < width; h++)
+                    column[h] = spectrum[h, w];
+                column = DecimationInFrequency(column, direct);
+                for (int h = 0; h < width; h++)
+                    spectrum[h, w] = column[h];
+            }
+
+            return spectrum;
+        }
     }
 }

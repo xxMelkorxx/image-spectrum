@@ -48,8 +48,9 @@
 			System.Windows.Forms.Label label_a1;
 			System.Windows.Forms.GroupBox groupBox_paramsNoise;
 			System.Windows.Forms.Label label_SNR;
-			this.pictBox_Image = new System.Windows.Forms.PictureBox();
-			this.pictBox_ImageSpectrum = new System.Windows.Forms.PictureBox();
+			System.Windows.Forms.GroupBox groupBox_paramImage;
+			System.Windows.Forms.Label label_Height;
+			System.Windows.Forms.Label label_Width;
 			this.numUpDown_sigmaY3 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_shiftY3 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_shiftX3 = new System.Windows.Forms.NumericUpDown();
@@ -65,10 +66,15 @@
 			this.numUpDown_shiftX1 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_sigmaX1 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_a1 = new System.Windows.Forms.NumericUpDown();
-			this.button_Show = new System.Windows.Forms.Button();
-			this.button_LoadImage = new System.Windows.Forms.Button();
-			this.numUpDown_SNR = new System.Windows.Forms.NumericUpDown();
 			this.checkBox_isNoise = new System.Windows.Forms.CheckBox();
+			this.numUpDown_SNR = new System.Windows.Forms.NumericUpDown();
+			this.numUpDown_Height = new System.Windows.Forms.NumericUpDown();
+			this.numUpDown_Width = new System.Windows.Forms.NumericUpDown();
+			this.button_GetSpectrum = new System.Windows.Forms.Button();
+			this.button_LoadImage = new System.Windows.Forms.Button();
+			this.button_GetImage = new System.Windows.Forms.Button();
+			this.button_GetNoiseImage = new System.Windows.Forms.Button();
+			this.button_Calculate = new System.Windows.Forms.Button();
 			groupBox_paramsDome3 = new System.Windows.Forms.GroupBox();
 			label_sigmaY3 = new System.Windows.Forms.Label();
 			label_shiftY3 = new System.Windows.Forms.Label();
@@ -89,8 +95,9 @@
 			label_a1 = new System.Windows.Forms.Label();
 			groupBox_paramsNoise = new System.Windows.Forms.GroupBox();
 			label_SNR = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.pictBox_Image)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.pictBox_ImageSpectrum)).BeginInit();
+			groupBox_paramImage = new System.Windows.Forms.GroupBox();
+			label_Height = new System.Windows.Forms.Label();
+			label_Width = new System.Windows.Forms.Label();
 			groupBox_paramsDome3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY3)).BeginInit();
@@ -111,31 +118,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a1)).BeginInit();
 			groupBox_paramsNoise.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_SNR)).BeginInit();
+			groupBox_paramImage.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Height)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Width)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// pictBox_Image
-			// 
-			this.pictBox_Image.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pictBox_Image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictBox_Image.Location = new System.Drawing.Point(12, 12);
-			this.pictBox_Image.Name = "pictBox_Image";
-			this.pictBox_Image.Size = new System.Drawing.Size(512, 512);
-			this.pictBox_Image.TabIndex = 0;
-			this.pictBox_Image.TabStop = false;
-			// 
-			// pictBox_ImageSpectrum
-			// 
-			this.pictBox_ImageSpectrum.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pictBox_ImageSpectrum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictBox_ImageSpectrum.Location = new System.Drawing.Point(530, 12);
-			this.pictBox_ImageSpectrum.Name = "pictBox_ImageSpectrum";
-			this.pictBox_ImageSpectrum.Size = new System.Drawing.Size(512, 512);
-			this.pictBox_ImageSpectrum.TabIndex = 1;
-			this.pictBox_ImageSpectrum.TabStop = false;
 			// 
 			// groupBox_paramsDome3
 			// 
-			groupBox_paramsDome3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			groupBox_paramsDome3.Controls.Add(label_sigmaY3);
 			groupBox_paramsDome3.Controls.Add(this.numUpDown_sigmaY3);
 			groupBox_paramsDome3.Controls.Add(label_shiftY3);
@@ -146,7 +135,7 @@
 			groupBox_paramsDome3.Controls.Add(this.numUpDown_sigmaX3);
 			groupBox_paramsDome3.Controls.Add(label_a3);
 			groupBox_paramsDome3.Controls.Add(this.numUpDown_a3);
-			groupBox_paramsDome3.Location = new System.Drawing.Point(360, 530);
+			groupBox_paramsDome3.Location = new System.Drawing.Point(360, 91);
 			groupBox_paramsDome3.Name = "groupBox_paramsDome3";
 			groupBox_paramsDome3.Size = new System.Drawing.Size(164, 149);
 			groupBox_paramsDome3.TabIndex = 9;
@@ -188,11 +177,10 @@
 			this.numUpDown_sigmaY3.TabIndex = 13;
 			this.numUpDown_sigmaY3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaY3.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaY3.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftY3
 			// 
@@ -227,7 +215,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftY3.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftX3
 			// 
@@ -262,7 +249,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftX3.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_sigmaX3
 			// 
@@ -299,11 +285,10 @@
 			this.numUpDown_sigmaX3.TabIndex = 7;
 			this.numUpDown_sigmaX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaX3.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaX3.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_a3
 			// 
@@ -333,11 +318,9 @@
             0,
             0,
             0});
-			this.numUpDown_a3.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// groupBox_paramsDome2
 			// 
-			groupBox_paramsDome2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			groupBox_paramsDome2.Controls.Add(label_sigmaY2);
 			groupBox_paramsDome2.Controls.Add(this.numUpDown_sigmaY2);
 			groupBox_paramsDome2.Controls.Add(label_shiftY2);
@@ -348,7 +331,7 @@
 			groupBox_paramsDome2.Controls.Add(this.numUpDown_sigmaX2);
 			groupBox_paramsDome2.Controls.Add(label_a2);
 			groupBox_paramsDome2.Controls.Add(this.numUpDown_a2);
-			groupBox_paramsDome2.Location = new System.Drawing.Point(185, 530);
+			groupBox_paramsDome2.Location = new System.Drawing.Point(185, 91);
 			groupBox_paramsDome2.Name = "groupBox_paramsDome2";
 			groupBox_paramsDome2.Size = new System.Drawing.Size(164, 149);
 			groupBox_paramsDome2.TabIndex = 8;
@@ -390,11 +373,10 @@
 			this.numUpDown_sigmaY2.TabIndex = 13;
 			this.numUpDown_sigmaY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaY2.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaY2.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftY2
 			// 
@@ -429,7 +411,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftY2.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftX2
 			// 
@@ -464,7 +445,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftX2.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_sigmaX2
 			// 
@@ -501,11 +481,10 @@
 			this.numUpDown_sigmaX2.TabIndex = 7;
 			this.numUpDown_sigmaX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaX2.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaX2.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_a2
 			// 
@@ -535,11 +514,9 @@
             0,
             0,
             0});
-			this.numUpDown_a2.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// groupBox_paramsDome1
 			// 
-			groupBox_paramsDome1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			groupBox_paramsDome1.Controls.Add(label_sigmaY1);
 			groupBox_paramsDome1.Controls.Add(this.numUpDown_sigmaY1);
 			groupBox_paramsDome1.Controls.Add(label_shiftY1);
@@ -550,7 +527,7 @@
 			groupBox_paramsDome1.Controls.Add(this.numUpDown_sigmaX1);
 			groupBox_paramsDome1.Controls.Add(label_a1);
 			groupBox_paramsDome1.Controls.Add(this.numUpDown_a1);
-			groupBox_paramsDome1.Location = new System.Drawing.Point(12, 530);
+			groupBox_paramsDome1.Location = new System.Drawing.Point(12, 91);
 			groupBox_paramsDome1.Name = "groupBox_paramsDome1";
 			groupBox_paramsDome1.Size = new System.Drawing.Size(164, 149);
 			groupBox_paramsDome1.TabIndex = 7;
@@ -592,11 +569,10 @@
 			this.numUpDown_sigmaY1.TabIndex = 13;
 			this.numUpDown_sigmaY1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaY1.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaY1.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftY1
 			// 
@@ -631,7 +607,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftY1.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_shiftX1
 			// 
@@ -666,7 +641,6 @@
             0,
             0,
             0});
-			this.numUpDown_shiftX1.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_sigmaX1
 			// 
@@ -703,11 +677,10 @@
 			this.numUpDown_sigmaX1.TabIndex = 7;
 			this.numUpDown_sigmaX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_sigmaX1.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});
-			this.numUpDown_sigmaX1.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
 			// label_a1
 			// 
@@ -737,41 +710,33 @@
             0,
             0,
             0});
-			this.numUpDown_a1.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
-			// 
-			// button_Show
-			// 
-			this.button_Show.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button_Show.Location = new System.Drawing.Point(12, 685);
-			this.button_Show.Name = "button_Show";
-			this.button_Show.Size = new System.Drawing.Size(513, 25);
-			this.button_Show.TabIndex = 10;
-			this.button_Show.Text = "Отрисовать";
-			this.button_Show.UseVisualStyleBackColor = true;
-			this.button_Show.Click += new System.EventHandler(this.OnClickButtonShow);
-			// 
-			// button_LoadImage
-			// 
-			this.button_LoadImage.Location = new System.Drawing.Point(893, 685);
-			this.button_LoadImage.Name = "button_LoadImage";
-			this.button_LoadImage.Size = new System.Drawing.Size(150, 25);
-			this.button_LoadImage.TabIndex = 2;
-			this.button_LoadImage.Text = "Загрузить изображение";
-			this.button_LoadImage.UseVisualStyleBackColor = true;
-			this.button_LoadImage.Click += new System.EventHandler(this.OnClickButtonLoadImage);
 			// 
 			// groupBox_paramsNoise
 			// 
-			groupBox_paramsNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			groupBox_paramsNoise.Controls.Add(this.checkBox_isNoise);
 			groupBox_paramsNoise.Controls.Add(label_SNR);
 			groupBox_paramsNoise.Controls.Add(this.numUpDown_SNR);
-			groupBox_paramsNoise.Location = new System.Drawing.Point(531, 530);
+			groupBox_paramsNoise.Location = new System.Drawing.Point(12, 246);
 			groupBox_paramsNoise.Name = "groupBox_paramsNoise";
-			groupBox_paramsNoise.Size = new System.Drawing.Size(164, 149);
+			groupBox_paramsNoise.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			groupBox_paramsNoise.Size = new System.Drawing.Size(164, 79);
 			groupBox_paramsNoise.TabIndex = 11;
 			groupBox_paramsNoise.TabStop = false;
 			groupBox_paramsNoise.Text = "Параметры шума";
+			// 
+			// checkBox_isNoise
+			// 
+			this.checkBox_isNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBox_isNoise.AutoSize = true;
+			this.checkBox_isNoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.checkBox_isNoise.Location = new System.Drawing.Point(52, 19);
+			this.checkBox_isNoise.Name = "checkBox_isNoise";
+			this.checkBox_isNoise.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.checkBox_isNoise.Size = new System.Drawing.Size(106, 17);
+			this.checkBox_isNoise.TabIndex = 6;
+			this.checkBox_isNoise.Text = "Добавить шум?";
+			this.checkBox_isNoise.UseVisualStyleBackColor = true;
+			this.checkBox_isNoise.CheckedChanged += new System.EventHandler(this.OnCheckedChangedCheckBoxIsNoise);
 			// 
 			// label_SNR
 			// 
@@ -794,7 +759,7 @@
             0});
 			this.numUpDown_SNR.Location = new System.Drawing.Point(83, 45);
 			this.numUpDown_SNR.Maximum = new decimal(new int[] {
-            500,
+            1000,
             0,
             0,
             0});
@@ -807,42 +772,174 @@
             0,
             0,
             0});
-			this.numUpDown_SNR.ValueChanged += new System.EventHandler(this.OnClickButtonShow);
 			// 
-			// checkBox_isNoise
+			// groupBox_paramImage
 			// 
-			this.checkBox_isNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkBox_isNoise.AutoSize = true;
-			this.checkBox_isNoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.checkBox_isNoise.Location = new System.Drawing.Point(52, 19);
-			this.checkBox_isNoise.Name = "checkBox_isNoise";
-			this.checkBox_isNoise.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.checkBox_isNoise.Size = new System.Drawing.Size(106, 17);
-			this.checkBox_isNoise.TabIndex = 6;
-			this.checkBox_isNoise.Text = "Добавить шум?";
-			this.checkBox_isNoise.UseVisualStyleBackColor = true;
-			this.checkBox_isNoise.CheckedChanged += new System.EventHandler(this.OnCheckedChangedCheckBoxIsNoise);
+			groupBox_paramImage.Controls.Add(label_Height);
+			groupBox_paramImage.Controls.Add(this.numUpDown_Height);
+			groupBox_paramImage.Controls.Add(label_Width);
+			groupBox_paramImage.Controls.Add(this.numUpDown_Width);
+			groupBox_paramImage.Location = new System.Drawing.Point(12, 12);
+			groupBox_paramImage.Name = "groupBox_paramImage";
+			groupBox_paramImage.Size = new System.Drawing.Size(164, 73);
+			groupBox_paramImage.TabIndex = 15;
+			groupBox_paramImage.TabStop = false;
+			groupBox_paramImage.Text = "Параметры изображения";
+			// 
+			// label_Height
+			// 
+			label_Height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			label_Height.AutoSize = true;
+			label_Height.Location = new System.Drawing.Point(29, 47);
+			label_Height.Name = "label_Height";
+			label_Height.Size = new System.Drawing.Size(48, 13);
+			label_Height.TabIndex = 10;
+			label_Height.Text = "Высота:";
+			// 
+			// numUpDown_Height
+			// 
+			this.numUpDown_Height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_Height.Increment = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+			this.numUpDown_Height.Location = new System.Drawing.Point(83, 45);
+			this.numUpDown_Height.Maximum = new decimal(new int[] {
+            2048,
+            0,
+            0,
+            0});
+			this.numUpDown_Height.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+			this.numUpDown_Height.Name = "numUpDown_Height";
+			this.numUpDown_Height.Size = new System.Drawing.Size(75, 20);
+			this.numUpDown_Height.TabIndex = 11;
+			this.numUpDown_Height.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_Height.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+			// 
+			// label_Width
+			// 
+			label_Width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			label_Width.AutoSize = true;
+			label_Width.Location = new System.Drawing.Point(28, 21);
+			label_Width.Name = "label_Width";
+			label_Width.Size = new System.Drawing.Size(49, 13);
+			label_Width.TabIndex = 8;
+			label_Width.Text = "Ширина:";
+			// 
+			// numUpDown_Width
+			// 
+			this.numUpDown_Width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_Width.Increment = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+			this.numUpDown_Width.Location = new System.Drawing.Point(83, 19);
+			this.numUpDown_Width.Maximum = new decimal(new int[] {
+            2048,
+            0,
+            0,
+            0});
+			this.numUpDown_Width.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+			this.numUpDown_Width.Name = "numUpDown_Width";
+			this.numUpDown_Width.Size = new System.Drawing.Size(75, 20);
+			this.numUpDown_Width.TabIndex = 9;
+			this.numUpDown_Width.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_Width.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+			// 
+			// button_GetSpectrum
+			// 
+			this.button_GetSpectrum.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.button_GetSpectrum.Enabled = false;
+			this.button_GetSpectrum.Location = new System.Drawing.Point(360, 371);
+			this.button_GetSpectrum.Name = "button_GetSpectrum";
+			this.button_GetSpectrum.Size = new System.Drawing.Size(169, 34);
+			this.button_GetSpectrum.TabIndex = 10;
+			this.button_GetSpectrum.Text = "Получить спектр изображения";
+			this.button_GetSpectrum.UseVisualStyleBackColor = true;
+			this.button_GetSpectrum.Click += new System.EventHandler(this.OnClickButtonGetSpectrumImage);
+			// 
+			// button_LoadImage
+			// 
+			this.button_LoadImage.Location = new System.Drawing.Point(365, 291);
+			this.button_LoadImage.Name = "button_LoadImage";
+			this.button_LoadImage.Size = new System.Drawing.Size(164, 34);
+			this.button_LoadImage.TabIndex = 2;
+			this.button_LoadImage.Text = "Загрузить изображение";
+			this.button_LoadImage.UseVisualStyleBackColor = true;
+			this.button_LoadImage.Click += new System.EventHandler(this.OnClickButtonLoadImage);
+			// 
+			// button_GetImage
+			// 
+			this.button_GetImage.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.button_GetImage.Enabled = false;
+			this.button_GetImage.Location = new System.Drawing.Point(12, 371);
+			this.button_GetImage.Name = "button_GetImage";
+			this.button_GetImage.Size = new System.Drawing.Size(164, 34);
+			this.button_GetImage.TabIndex = 12;
+			this.button_GetImage.Text = "Получить исходное изображение";
+			this.button_GetImage.UseVisualStyleBackColor = true;
+			this.button_GetImage.Click += new System.EventHandler(this.OnClickButtonGetImage);
+			// 
+			// button_GetNoiseImage
+			// 
+			this.button_GetNoiseImage.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.button_GetNoiseImage.Enabled = false;
+			this.button_GetNoiseImage.Location = new System.Drawing.Point(182, 371);
+			this.button_GetNoiseImage.Name = "button_GetNoiseImage";
+			this.button_GetNoiseImage.Size = new System.Drawing.Size(167, 34);
+			this.button_GetNoiseImage.TabIndex = 14;
+			this.button_GetNoiseImage.Text = "Получить изображение с шумом";
+			this.button_GetNoiseImage.UseVisualStyleBackColor = true;
+			this.button_GetNoiseImage.Click += new System.EventHandler(this.OnClickButtonGetNoiseImage);
+			// 
+			// button_Calculate
+			// 
+			this.button_Calculate.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.button_Calculate.Location = new System.Drawing.Point(12, 331);
+			this.button_Calculate.Name = "button_Calculate";
+			this.button_Calculate.Size = new System.Drawing.Size(517, 34);
+			this.button_Calculate.TabIndex = 16;
+			this.button_Calculate.Text = "Выполнить";
+			this.button_Calculate.UseVisualStyleBackColor = true;
+			this.button_Calculate.Click += new System.EventHandler(this.OnClickButtonCalculate);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(1050, 717);
+			this.ClientSize = new System.Drawing.Size(533, 412);
+			this.Controls.Add(this.button_Calculate);
+			this.Controls.Add(groupBox_paramImage);
+			this.Controls.Add(this.button_GetNoiseImage);
+			this.Controls.Add(this.button_GetImage);
 			this.Controls.Add(groupBox_paramsNoise);
-			this.Controls.Add(this.button_Show);
+			this.Controls.Add(this.button_GetSpectrum);
 			this.Controls.Add(groupBox_paramsDome3);
 			this.Controls.Add(groupBox_paramsDome2);
 			this.Controls.Add(groupBox_paramsDome1);
 			this.Controls.Add(this.button_LoadImage);
-			this.Controls.Add(this.pictBox_ImageSpectrum);
-			this.Controls.Add(this.pictBox_Image);
 			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.Text = "ИТФИ ННГУ | Спектр изображения";
-			this.Load += new System.EventHandler(this.OnLoadMainForm);
-			((System.ComponentModel.ISupportInitialize)(this.pictBox_Image)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.pictBox_ImageSpectrum)).EndInit();
 			groupBox_paramsDome3.ResumeLayout(false);
 			groupBox_paramsDome3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).EndInit();
@@ -867,14 +964,15 @@
 			groupBox_paramsNoise.ResumeLayout(false);
 			groupBox_paramsNoise.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_SNR)).EndInit();
+			groupBox_paramImage.ResumeLayout(false);
+			groupBox_paramImage.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Height)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Width)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.PictureBox pictBox_Image;
-		private System.Windows.Forms.PictureBox pictBox_ImageSpectrum;
 		private System.Windows.Forms.NumericUpDown numUpDown_sigmaY3;
 		private System.Windows.Forms.NumericUpDown numUpDown_shiftY3;
 		private System.Windows.Forms.NumericUpDown numUpDown_shiftX3;
@@ -890,10 +988,15 @@
 		private System.Windows.Forms.NumericUpDown numUpDown_shiftX1;
 		private System.Windows.Forms.NumericUpDown numUpDown_sigmaX1;
 		private System.Windows.Forms.NumericUpDown numUpDown_a1;
-		private System.Windows.Forms.Button button_Show;
+		private System.Windows.Forms.Button button_GetSpectrum;
 		private System.Windows.Forms.Button button_LoadImage;
-		private System.Windows.Forms.CheckBox checkBox_isNoise;
 		private System.Windows.Forms.NumericUpDown numUpDown_SNR;
+		private System.Windows.Forms.Button button_GetImage;
+		private System.Windows.Forms.Button button_GetNoiseImage;
+		private System.Windows.Forms.CheckBox checkBox_isNoise;
+		private System.Windows.Forms.NumericUpDown numUpDown_Height;
+		private System.Windows.Forms.NumericUpDown numUpDown_Width;
+		private System.Windows.Forms.Button button_Calculate;
 	}
 }
 
