@@ -12,9 +12,13 @@ namespace ImageSpectrum
 {
 	public partial class ImageForm : Form
 	{
-		public ImageForm()
+		public ImageForm(string header, Bitmap bitmap)
 		{
 			InitializeComponent();
+			this.Text = header;
+			this.pictBox_Image.Width = bitmap.Width;
+			this.pictBox_Image.Height = bitmap.Height;
+			this.pictBox_Image.Image = bitmap;
 		}
 	}
 }

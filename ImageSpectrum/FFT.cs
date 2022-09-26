@@ -18,24 +18,24 @@ namespace ImageSpectrum
         public static Complex[] DecimationInFrequency(Complex[] frame, bool direct)
         {
             if (frame.Length == 1) return frame;
-            int halfSampleSize = frame.Length >> 1; // frame.Length/2;
-            int fullSampleSize = frame.Length;
+            var halfSampleSize = frame.Length >> 1; // frame.Length/2;
+            var fullSampleSize = frame.Length;
 
-            double arg = direct ? -DoublePi / fullSampleSize : DoublePi / fullSampleSize;
-            Complex omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
-            Complex omega = Complex.One;
-            Complex[] spectrum = new Complex[fullSampleSize];
+            var arg = direct ? -DoublePi / fullSampleSize : DoublePi / fullSampleSize;
+            var omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
+            var omega = Complex.One;
+            var spectrum = new Complex[fullSampleSize];
 
-            for (int j = 0; j < halfSampleSize; j++)
+            for (var j = 0; j < halfSampleSize; j++)
             {
                 spectrum[j] = frame[j] + frame[j + halfSampleSize];
                 spectrum[j + halfSampleSize] = omega * (frame[j] - frame[j + halfSampleSize]);
                 omega *= omegaPowBase;
             }
 
-            Complex[] yTop = new Complex[halfSampleSize];
-            Complex[] yBottom = new Complex[halfSampleSize];
-            for (int i = 0; i < halfSampleSize; i++)
+            var yTop = new Complex[halfSampleSize];
+            var yBottom = new Complex[halfSampleSize];
+            for (var i = 0; i < halfSampleSize; i++)
             {
                 yTop[i] = spectrum[i];
                 yBottom[i] = spectrum[i + halfSampleSize];
@@ -43,9 +43,9 @@ namespace ImageSpectrum
 
             yTop = DecimationInFrequency(yTop, direct);
             yBottom = DecimationInFrequency(yBottom, direct);
-            for (int i = 0; i < halfSampleSize; i++)
+            for (var i = 0; i < halfSampleSize; i++)
             {
-                int j = i << 1; // i = 2*j;
+                var j = i << 1; // i = 2*j;
                 spectrum[j] = yTop[i];
                 spectrum[j + 1] = yBottom[i];
             }
@@ -55,28 +55,28 @@ namespace ImageSpectrum
 
         public static Complex[,] FFT_2D(Complex[,] frame, bool direct)
         {
-            int width = frame.GetLength(0);
-            int height = frame.GetLength(1);
+            var width = frame.GetLength(0);
+            var height = frame.GetLength(1);
 
-            Complex[,] spectrum = new Complex[width, height];
-            Complex[] row = new Complex[width];
-            Complex[] column = new Complex[height];
+            var spectrum = new Complex[width, height];
+            var row = new Complex[width];
+            var column = new Complex[height];
 
-            for (int h = 0; h < height; h++)
+            for (var h = 0; h < height; h++)
             {
-                for (int w = 0; w < width; w++)
+                for (var w = 0; w < width; w++)
                     row[w] = frame[h, w];
                 row = DecimationInFrequency(row, direct);
-                for (int w = 0; w < width; w++)
+                for (var w = 0; w < width; w++)
                     spectrum[h, w] = row[w];
             }
 
-            for (int w = 0; w < width; w++)
+            for (var w = 0; w < width; w++)
             {
-                for (int h = 0; h < width; h++)
+                for (var h = 0; h < width; h++)
                     column[h] = spectrum[h, w];
                 column = DecimationInFrequency(column, direct);
-                for (int h = 0; h < width; h++)
+                for (var h = 0; h < width; h++)
                     spectrum[h, w] = column[h];
             }
 

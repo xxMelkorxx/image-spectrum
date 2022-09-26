@@ -1,111 +1,113 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using System.Numerics;
 
 namespace ImageSpectrum
 {
-	public partial class MainForm : Form
-	{
-		private Picture picture;
+    public partial class MainForm : Form
+    {
+        private ImageProcessing _imageProcessing;
 
-		public MainForm()
-		{
-			InitializeComponent();
-		}
+        public MainForm()
+        {
+            InitializeComponent();
+        }
 
-		private void OnClickButtonCalculate(object sender, EventArgs e)
-		{
-			int width = (int)numUpDown_Width.Value;
-			int height = (int)numUpDown_Height.Value;
+        private void OnClickButtonGenerateImage(object sender, EventArgs e)
+        {
+            var width = (int)numUpDown_Width.Value;
+            var height = (int)numUpDown_Height.Value;
 
-			picture = new Picture(width, height);
+            _imageProcessing = new ImageProcessing(width, height);
+            _imageProcessing.CreateSurfaceGauss(
+                new[] { (double)numUpDown_a1.Value, (double)numUpDown_a2.Value, (double)numUpDown_a3.Value },
+                new[]
+                {
+                    (double)numUpDown_sigmaX1.Value, (double)numUpDown_sigmaX2.Value, (double)numUpDown_sigmaX3.Value
+                },
+                new[]
+                {
+                    (double)numUpDown_sigmaY1.Value, (double)numUpDown_sigmaY2.Value, (double)numUpDown_sigmaY3.Value
+                },
+                new[]
+                {
+                    (double)numUpDown_shiftX1.Value, (double)numUpDown_shiftX2.Value, (double)numUpDown_shiftX3.Value
+                },
+                new[]
+                {
+                    (double)numUpDown_shiftY1.Value, (double)numUpDown_shiftY2.Value, (double)numUpDown_shiftY3.Value
+                }
+            );
 
-			picture.CreateSurfaceGauss(
-				new double[] { (double)numUpDown_a1.Value, (double)numUpDown_a2.Value, (double)numUpDown_a3.Value },
-				new double[] { (double)numUpDown_sigmaX1.Value, (double)numUpDown_sigmaX2.Value, (double)numUpDown_sigmaX3.Value },
-				new double[] { (double)numUpDown_sigmaY1.Value, (double)numUpDown_sigmaY2.Value, (double)numUpDown_sigmaY3.Value },
-				new double[] { (double)numUpDown_shiftX1.Value, (double)numUpDown_shiftX2.Value, (double)numUpDown_shiftX3.Value },
-				new double[] { (double)numUpDown_shiftY1.Value, (double)numUpDown_shiftY2.Value, (double)numUpDown_shiftY3.Value }
-			);
+            button_GetSpectrum.Enabled = true;
+            groupBox_paramsNoise.Enabled = true;
+            OnGetImage(null, null);
+        }
 
-			if (checkBox_isNoise.Checked)
-				picture.AddNoise((double)numUpDown_SNR.Value);
+        private void OnClickButtonLoadImage(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.BMP;*.PNG;*.JPG)|*.BMP;*.PNG;*.JPG|All files (*.*)|*.*",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var bmp = new Bitmap(dialog.FileName);
+                    _imageProcessing = new ImageProcessing(bmp);
+                    button_GetSpectrum.Enabled = true;
+                    groupBox_paramsNoise.Enabled = true;
+                    CallImageForm("Исходное изображение", bmp);
+                    CallImageForm("Исходное изображение (полутоновое)", _imageProcessing.InitImage.Bitmap);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Ошибка!");
+                    throw;
+                }
+            }
+        }
 
-			picture.CalculateFurie(true);
-			picture.TransformSpectrum();
+        private void OnClickButtonCalculate(object sender, EventArgs e)
+        {
+            
+        }
 
-			if (checkBox_isNoise.Checked)
-			{
-				ImageForm noiseImageForm = new ImageForm();
-				noiseImageForm.Text = "Зашумлённое изображение";
-				noiseImageForm.pictBox_Image.Image = picture.noiseImage.bitmap;
-				noiseImageForm.Show();
+        private void OnGetImage(object sender, EventArgs e)
+        {
+            CallImageForm("Исходное изображение", _imageProcessing.InitImage.Bitmap);
+        }
 
-				button_GetNoiseImage.Enabled = true;
-			}
-			else
-			{
-				ImageForm initImageForm = new ImageForm();
-				initImageForm.Text = "Исходное изображение";
-				initImageForm.pictBox_Image.Image = picture.initImage.bitmap;
-				initImageForm.Show();
+        private void OnGetNoiseImage(object sender, EventArgs e)
+        {
+            _imageProcessing.AddNoise((double)numUpDown_SNR.Value);
+            CallImageForm("Зашумлённое изображение", _imageProcessing.NoiseImage.Bitmap);
+        }
 
-			}
+        private void OnGetSpectrumImage(object sender, EventArgs e)
+        {
+            if (checkBox_isNoise.Checked)
+                _imageProcessing.CalculateFurie(true, true);
+            else
+                _imageProcessing.CalculateFurie(true);
+            _imageProcessing.TransformSpectrum();
+            CallImageForm("Спектр изображения", _imageProcessing.SpectrumImage.Bitmap);
+        }
 
-			ImageForm imageForm = new ImageForm();
-			imageForm.Text = "Спектр изображения";
-			imageForm.pictBox_Image.Image = picture.spectrumImage.bitmap;
-			imageForm.Show();
+        private void OnCheckedChangedCheckBoxIsNoise(object sender, EventArgs e)
+        {
+            if (checkBox_isNoise.Checked)
+                button_GetNoiseImage.Enabled = true;
+            else button_GetNoiseImage.Enabled = false;
+        }
 
-			button_GetSpectrum.Enabled = true;
-			button_GetImage.Enabled = true;
-		}
-
-		private void OnClickButtonGetImage(object sender, EventArgs e)
-		{
-			ImageForm imageForm = new ImageForm();
-			imageForm.Text = "Исходное изображение";
-			imageForm.pictBox_Image.Image = picture.initImage.bitmap;
-			imageForm.Show();
-		}
-
-		private void OnClickButtonGetNoiseImage(object sender, EventArgs e)
-		{
-			ImageForm imageForm = new ImageForm();
-			imageForm.Text = "Зашумлённое изображение";
-			imageForm.pictBox_Image.Image = picture.noiseImage.bitmap;
-			imageForm.Show();
-		}
-
-		private void OnClickButtonGetSpectrumImage(object sender, EventArgs e)
-		{
-
-			ImageForm imageForm = new ImageForm();
-			imageForm.Text = "Спектр изображения";
-			imageForm.pictBox_Image.Image = picture.spectrumImage.bitmap;
-			imageForm.Show();
-		}
-
-		private void OnClickButtonLoadImage(object sender, EventArgs e)
-		{
-
-		}
-
-		private void OnCheckedChangedCheckBoxIsNoise(object sender, EventArgs e)
-		{
-			if (checkBox_isNoise.Checked)
-			{
-				numUpDown_SNR.Enabled = true;
-				//button_GetNoiseImage.Enabled = true;
-			}
-			else
-			{
-				numUpDown_SNR.Enabled = false;
-				//button_GetNoiseImage.Enabled = false;
-			}
-		}
-
-
-	}
+        private static void CallImageForm(string header, Bitmap bmp)
+        {
+            var imageForm = new ImageForm(header, bmp);
+            imageForm.Show();
+        }
+    }
 }
