@@ -9,6 +9,7 @@ namespace ImageSpectrum
     public static class FFT
     {
         public const double DoublePi = 2 * Math.PI;
+
         /// <summary>
         /// Децимация по частоте.
         /// </summary>
@@ -18,7 +19,7 @@ namespace ImageSpectrum
         public static Complex[] DecimationInFrequency(Complex[] frame, bool direct)
         {
             if (frame.Length == 1) return frame;
-            var halfSampleSize = frame.Length >> 1; // frame.Length/2;
+            var halfSampleSize = frame.Length >> 1;
             var fullSampleSize = frame.Length;
 
             var arg = direct ? -DoublePi / fullSampleSize : DoublePi / fullSampleSize;
@@ -53,34 +54,68 @@ namespace ImageSpectrum
             return spectrum;
         }
 
-        public static Complex[,] FFT_2D(Complex[,] frame, bool direct)
+        public static MatrixImage FFT_2D(MatrixImage frame, bool direct)
         {
-            var width = frame.GetLength(0);
-            var height = frame.GetLength(1);
+            var width = frame.Width;
+            var height = frame.Height;
+            var spectrum = new MatrixImage(width, height, !frame.IsSpectrum);
+            
+            if (!direct) frame = AngularTransform(frame);
+            for (var i = 0; i < width; i++)
+                spectrum.Matrix[i] = DecimationInFrequency(frame.Matrix[i], direct);
+            spectrum = Transform(spectrum);
+            for (var i = 0; i < height; i++)
+                spectrum.Matrix[i] = DecimationInFrequency(spectrum.Matrix[i], direct);
+            spectrum = Transform(spectrum);
+            if (direct) spectrum = AngularTransform(spectrum);
 
-            var spectrum = new Complex[width, height];
-            var row = new Complex[width];
-            var column = new Complex[height];
-
-            for (var h = 0; h < height; h++)
-            {
-                for (var w = 0; w < width; w++)
-                    row[w] = frame[h, w];
-                row = DecimationInFrequency(row, direct);
-                for (var w = 0; w < width; w++)
-                    spectrum[h, w] = row[w];
-            }
-
-            for (var w = 0; w < width; w++)
-            {
-                for (var h = 0; h < width; h++)
-                    column[h] = spectrum[h, w];
-                column = DecimationInFrequency(column, direct);
-                for (var h = 0; h < width; h++)
-                    spectrum[h, w] = column[h];
-            }
+            if (!direct)
+                for (var i = 0; i < width; i++)
+                for (var j = 0; j < height; j++)
+                    spectrum.Matrix[i][j] /= width * height;
 
             return spectrum;
+        }
+
+        /// <summary>
+        /// Транспонирование матрицы.
+        /// </summary>
+        /// <param name="init">Исходная матрица</param>
+        /// <returns>Трансвонированная матрица</returns>
+        public static MatrixImage Transform(MatrixImage init)
+        {
+            var width = init.Width;
+            var height = init.Height;
+            var result = new MatrixImage(height, width, init.IsSpectrum);
+            
+            for (var i = 0; i < height; i++)
+            for (var j = 0; j < width; j++)
+                result.Matrix[i][j] = init.Matrix[j][i];
+            
+            return result;
+        }
+
+        /// <summary>
+        /// Трансформация спектра, чтобы основная энергия была сконцентрирована в центре.
+        /// </summary>
+        public static MatrixImage AngularTransform(MatrixImage spectrum)
+        {
+            var width = spectrum.Width;
+            var height = spectrum.Height;
+            var halfWidth = width >> 1;
+            var halfHeight = height >> 1;
+            var result = new MatrixImage(width, height, spectrum.IsSpectrum);
+
+            for (var i = 0; i < halfWidth; i++)
+            for (var j = 0; j < halfHeight; j++)
+            {
+                result.Matrix[i][j] = spectrum.Matrix[i + halfWidth][j + halfHeight];
+                result.Matrix[i + halfWidth][j] = spectrum.Matrix[i][j + halfHeight];
+                result.Matrix[i][j + halfHeight] = spectrum.Matrix[i + halfWidth][j];
+                result.Matrix[i + halfWidth][j + halfHeight] = spectrum.Matrix[i][j];
+            }
+
+            return result;
         }
     }
 }
