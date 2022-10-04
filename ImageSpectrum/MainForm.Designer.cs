@@ -55,6 +55,7 @@
 			System.Windows.Forms.Label label_SkoInitAndRestore;
 			System.Windows.Forms.Label label_CutoffEnergy;
 			System.Windows.Forms.GroupBox groupBox_paramFiltered;
+			System.Windows.Forms.Label label_radiusCutoff;
 			System.Windows.Forms.GroupBox groupBox_AdditionImage;
 			this.numUpDown_sigmaY3 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_shiftY3 = new System.Windows.Forms.NumericUpDown();
@@ -75,6 +76,9 @@
 			this.numUpDown_width = new System.Windows.Forms.NumericUpDown();
 			this.textBox_SkoInitAndNoise = new System.Windows.Forms.TextBox();
 			this.textBox_SkoInitAndRestore = new System.Windows.Forms.TextBox();
+			this.numUpDown_radiusCutoff = new System.Windows.Forms.NumericUpDown();
+			this.rB_cutoffSmallEnergy = new System.Windows.Forms.RadioButton();
+			this.rB_cutoffCircle = new System.Windows.Forms.RadioButton();
 			this.numUpDown_cutoffEnergy = new System.Windows.Forms.NumericUpDown();
 			this.rB_bilinearInterpolation = new System.Windows.Forms.RadioButton();
 			this.rB_zerosAdding = new System.Windows.Forms.RadioButton();
@@ -115,6 +119,7 @@
 			label_SkoInitAndRestore = new System.Windows.Forms.Label();
 			label_CutoffEnergy = new System.Windows.Forms.Label();
 			groupBox_paramFiltered = new System.Windows.Forms.GroupBox();
+			label_radiusCutoff = new System.Windows.Forms.Label();
 			groupBox_AdditionImage = new System.Windows.Forms.GroupBox();
 			groupBox_paramsDome3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).BeginInit();
@@ -139,6 +144,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_width)).BeginInit();
 			groupBox_Sko.SuspendLayout();
 			groupBox_paramFiltered.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_radiusCutoff)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_cutoffEnergy)).BeginInit();
 			groupBox_AdditionImage.SuspendLayout();
 			this.groupBox_paramsNoise.SuspendLayout();
@@ -664,32 +670,80 @@
 			// label_CutoffEnergy
 			// 
 			label_CutoffEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			label_CutoffEnergy.AutoSize = true;
-			label_CutoffEnergy.Location = new System.Drawing.Point(44, 22);
+			label_CutoffEnergy.Location = new System.Drawing.Point(7, 48);
 			label_CutoffEnergy.Name = "label_CutoffEnergy";
-			label_CutoffEnergy.Size = new System.Drawing.Size(140, 14);
+			label_CutoffEnergy.Size = new System.Drawing.Size(121, 14);
 			label_CutoffEnergy.TabIndex = 5;
-			label_CutoffEnergy.Text = "Отсечка энергии(%):";
+			label_CutoffEnergy.Text = "Доля энергии(%):";
 			// 
 			// groupBox_paramFiltered
 			// 
+			groupBox_paramFiltered.Controls.Add(label_radiusCutoff);
+			groupBox_paramFiltered.Controls.Add(this.numUpDown_radiusCutoff);
+			groupBox_paramFiltered.Controls.Add(this.rB_cutoffSmallEnergy);
+			groupBox_paramFiltered.Controls.Add(this.rB_cutoffCircle);
 			groupBox_paramFiltered.Controls.Add(label_CutoffEnergy);
 			groupBox_paramFiltered.Controls.Add(this.numUpDown_cutoffEnergy);
 			groupBox_paramFiltered.Location = new System.Drawing.Point(209, 264);
 			groupBox_paramFiltered.Name = "groupBox_paramFiltered";
 			groupBox_paramFiltered.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			groupBox_paramFiltered.Size = new System.Drawing.Size(191, 76);
+			groupBox_paramFiltered.Size = new System.Drawing.Size(388, 76);
 			groupBox_paramFiltered.TabIndex = 21;
 			groupBox_paramFiltered.TabStop = false;
 			groupBox_paramFiltered.Text = "Параметры фильтрации";
 			// 
+			// label_radiusCutoff
+			// 
+			label_radiusCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			label_radiusCutoff.Location = new System.Drawing.Point(197, 48);
+			label_radiusCutoff.Name = "label_radiusCutoff";
+			label_radiusCutoff.Size = new System.Drawing.Size(128, 14);
+			label_radiusCutoff.TabIndex = 9;
+			label_radiusCutoff.Text = "Радиус обрезания:";
+			// 
+			// numUpDown_radiusCutoff
+			// 
+			this.numUpDown_radiusCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_radiusCutoff.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.numUpDown_radiusCutoff.Location = new System.Drawing.Point(331, 44);
+			this.numUpDown_radiusCutoff.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+			this.numUpDown_radiusCutoff.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.numUpDown_radiusCutoff.Name = "numUpDown_radiusCutoff";
+			this.numUpDown_radiusCutoff.Size = new System.Drawing.Size(50, 22);
+			this.numUpDown_radiusCutoff.TabIndex = 8;
+			this.numUpDown_radiusCutoff.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_radiusCutoff.Value = new decimal(new int[] { 100, 0, 0, 0 });
+			// 
+			// rB_cutoffSmallEnergy
+			// 
+			this.rB_cutoffSmallEnergy.Location = new System.Drawing.Point(7, 22);
+			this.rB_cutoffSmallEnergy.Name = "rB_cutoffSmallEnergy";
+			this.rB_cutoffSmallEnergy.Size = new System.Drawing.Size(177, 18);
+			this.rB_cutoffSmallEnergy.TabIndex = 7;
+			this.rB_cutoffSmallEnergy.Text = "Отсечка малых энергий";
+			this.rB_cutoffSmallEnergy.UseVisualStyleBackColor = true;
+			this.rB_cutoffSmallEnergy.CheckedChanged += new System.EventHandler(this.OnCheckedChangedSmallEnergy);
+			// 
+			// rB_cutoffCircle
+			// 
+			this.rB_cutoffCircle.Checked = true;
+			this.rB_cutoffCircle.Location = new System.Drawing.Point(204, 20);
+			this.rB_cutoffCircle.Name = "rB_cutoffCircle";
+			this.rB_cutoffCircle.Size = new System.Drawing.Size(177, 18);
+			this.rB_cutoffCircle.TabIndex = 6;
+			this.rB_cutoffCircle.TabStop = true;
+			this.rB_cutoffCircle.Text = "Отсечка окружностью ";
+			this.rB_cutoffCircle.UseVisualStyleBackColor = true;
+			this.rB_cutoffCircle.CheckedChanged += new System.EventHandler(this.OnCheckedChangedCutoffCircle);
+			// 
 			// numUpDown_cutoffEnergy
 			// 
 			this.numUpDown_cutoffEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_cutoffEnergy.Enabled = false;
 			this.numUpDown_cutoffEnergy.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_cutoffEnergy.Location = new System.Drawing.Point(104, 45);
+			this.numUpDown_cutoffEnergy.Location = new System.Drawing.Point(134, 44);
 			this.numUpDown_cutoffEnergy.Name = "numUpDown_cutoffEnergy";
-			this.numUpDown_cutoffEnergy.Size = new System.Drawing.Size(80, 22);
+			this.numUpDown_cutoffEnergy.Size = new System.Drawing.Size(50, 22);
 			this.numUpDown_cutoffEnergy.TabIndex = 5;
 			this.numUpDown_cutoffEnergy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numUpDown_cutoffEnergy.Value = new decimal(new int[] { 10, 0, 0, 0 });
@@ -708,21 +762,21 @@
 			// 
 			// rB_bilinearInterpolation
 			// 
+			this.rB_bilinearInterpolation.Checked = true;
 			this.rB_bilinearInterpolation.Location = new System.Drawing.Point(7, 48);
 			this.rB_bilinearInterpolation.Name = "rB_bilinearInterpolation";
 			this.rB_bilinearInterpolation.Size = new System.Drawing.Size(374, 18);
 			this.rB_bilinearInterpolation.TabIndex = 1;
+			this.rB_bilinearInterpolation.TabStop = true;
 			this.rB_bilinearInterpolation.Text = "Билинейная интерполяция";
 			this.rB_bilinearInterpolation.UseVisualStyleBackColor = true;
 			// 
 			// rB_zerosAdding
 			// 
-			this.rB_zerosAdding.Checked = true;
 			this.rB_zerosAdding.Location = new System.Drawing.Point(7, 20);
 			this.rB_zerosAdding.Name = "rB_zerosAdding";
 			this.rB_zerosAdding.Size = new System.Drawing.Size(374, 18);
 			this.rB_zerosAdding.TabIndex = 0;
-			this.rB_zerosAdding.TabStop = true;
 			this.rB_zerosAdding.Text = "Дополнение нулями";
 			this.rB_zerosAdding.UseVisualStyleBackColor = true;
 			// 
@@ -902,7 +956,7 @@
 			groupBox_Sko.ResumeLayout(false);
 			groupBox_Sko.PerformLayout();
 			groupBox_paramFiltered.ResumeLayout(false);
-			groupBox_paramFiltered.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_radiusCutoff)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_cutoffEnergy)).EndInit();
 			groupBox_AdditionImage.ResumeLayout(false);
 			this.groupBox_paramsNoise.ResumeLayout(false);
@@ -910,6 +964,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_snr)).EndInit();
 			this.ResumeLayout(false);
 		}
+
+		private System.Windows.Forms.NumericUpDown numUpDown_radiusCutoff;
+
+		private System.Windows.Forms.RadioButton rB_cutoffSmallEnergy;
+		private System.Windows.Forms.RadioButton rB_cutoffCircle;
 
 		private System.Windows.Forms.RadioButton rB_zerosAdding;
 		private System.Windows.Forms.RadioButton rB_bilinearInterpolation;

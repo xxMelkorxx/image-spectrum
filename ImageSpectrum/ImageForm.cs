@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace ImageSpectrum
 {
 	public partial class ImageForm : Form
 	{
-		public ImageForm(string header, Bitmap bitmap)
+		public ImageForm(Bitmap bitmap)
 		{
 			InitializeComponent();
-			this.Text = header;
-			// this.pictBox_Image.Width = bitmap.Width;
-			// this.pictBox_Image.Height = bitmap.Height;
-			this.pictBox_Image.Image = bitmap;
+			pictBox_Image.Image = bitmap;
+			Clipboard.SetImage(bitmap);
 		}
 	}
 }

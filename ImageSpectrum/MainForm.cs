@@ -89,7 +89,7 @@ namespace ImageSpectrum
                     checkBox_isNoise.Checked = false;
 
                     CallImageForm("Исходное изображение", _initImage);
-                    CallImageForm("Исходное изображение (полутоновое)", _imageProcessing.InitImage.Bitmap);
+                    CallImageForm("Исходное изображение (полутоновое)", ImageProcessing.ConvertToHalftone(_initImage));
                 }
                 catch (Exception exception)
                 {
@@ -143,7 +143,22 @@ namespace ImageSpectrum
         /// <exception cref="NotImplementedException"></exception>
         private void OnGetFilteredSpectrum(object sender, EventArgs e)
         {
-            _imageProcessing.FilteredSpectrum((double)numUpDown_cutoffEnergy.Value);
+            var typeFiltration = rB_cutoffCircle.Checked ? TypeFiltration.Circle : TypeFiltration.SmallEnergy;
+            switch (typeFiltration)
+            {
+                case TypeFiltration.Circle:
+                {
+                    var radiusCutoff = (double)numUpDown_radiusCutoff.Value;
+                    _imageProcessing.FilteredSpectrumCircleCutoff(radiusCutoff);
+                    break;
+                }
+                case TypeFiltration.SmallEnergy:
+                {
+                    var cutoffEnergy = (double)numUpDown_cutoffEnergy.Value;
+                    _imageProcessing.FilteredSpectrumSmallEnergyCutoff(cutoffEnergy);
+                    break;
+                }
+            }
 
             CallImageForm("Отфильтрованный спектр", _imageProcessing.FilteredSpectrumImage.Bitmap);
 
@@ -199,6 +214,16 @@ namespace ImageSpectrum
                 button_GetFilteredSpectrum.Enabled = false;
             }
         }
+        
+        private void OnCheckedChangedCutoffCircle(object sender, EventArgs e)
+        {
+            numUpDown_radiusCutoff.Enabled = rB_cutoffCircle.Checked;
+        }
+        
+        private void OnCheckedChangedSmallEnergy(object sender, EventArgs e)
+        {
+            numUpDown_cutoffEnergy.Enabled = rB_cutoffSmallEnergy.Checked;
+        }
 
         /// <summary>
         /// Функция вызовы формы с изображением.
@@ -207,7 +232,10 @@ namespace ImageSpectrum
         /// <param name="bitmap">Изображение в формате Bitmap</param>
         private static void CallImageForm(string header, Bitmap bitmap)
         {
-            var imageForm = new ImageForm(header, bitmap);
+            var imageForm = new ImageForm(bitmap)
+            {
+                Text = header,
+            };
             imageForm.Show();
         }
     }
