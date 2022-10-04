@@ -23,6 +23,8 @@ namespace ImageSpectrum
         public MatrixImage FilteredSpectrumImage;
         public MatrixImage RestoreImage;
 
+        public int OldWidth, OldHeight;
+
         /// <summary>
         /// Конструктор.
         /// </summary>
@@ -39,6 +41,8 @@ namespace ImageSpectrum
         /// <param name="bitmap"></param>
         public ImageProcessing(Bitmap bitmap)
         {
+            OldWidth = bitmap.Width;
+            OldHeight = bitmap.Height;
             InitImage = new MatrixImage(bitmap);
             InitImage = ZerosAdding(InitImage);
         }
@@ -51,6 +55,8 @@ namespace ImageSpectrum
         /// <param name="height">Высота изображения</param>
         public ImageProcessing(Bitmap bitmap, int width, int height)
         {
+            OldWidth = bitmap.Width;
+            OldHeight = bitmap.Height;
             var newBitmap = Interpolation.BilinearInterpolation(bitmap, width, height);
             InitImage = new MatrixImage(newBitmap);
         }
@@ -216,7 +222,7 @@ namespace ImageSpectrum
             double sumUp = 0, sumDown = 0;
             for (var i = 0; i < width; i++)
             for (var j = 0; j < height; j++)
-                sumUp += (matrix1.Matrix[i][j].Magnitude - matrix2.Matrix[i][j]).Magnitude *
+                sumUp += (matrix1.Matrix[i][j].Magnitude - matrix2.Matrix[i][j].Magnitude) *
                          (matrix1.Matrix[i][j].Magnitude - matrix2.Matrix[i][j].Magnitude);
 
             for (var i = 0; i < width; i++)
@@ -273,6 +279,23 @@ namespace ImageSpectrum
                     newMatrix.Matrix[i][j] = matrix.Matrix[i][j];
                 else newMatrix.Matrix[i][j] = 0;
             }
+
+            return newMatrix;
+        }
+        
+        /// <summary>
+        /// Обрезание нулей у матрицы.
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="oldWidth"></param>
+        /// <param name="oldHeight"></param>
+        /// <returns></returns>
+        public static MatrixImage ZerosCutoff(MatrixImage matrix, int oldWidth, int oldHeight)
+        {
+            var newMatrix = new MatrixImage(oldWidth, oldHeight, matrix.IsSpectrum);
+            for (var i = 0; i < oldWidth; i++)
+            for (var j = 0; j < oldHeight; j++)
+                newMatrix.Matrix[i][j] = matrix.Matrix[i][j]; 
 
             return newMatrix;
         }

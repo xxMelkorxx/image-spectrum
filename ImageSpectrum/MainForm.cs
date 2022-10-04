@@ -8,6 +8,7 @@ namespace ImageSpectrum
     {
         private ImageProcessing _imageProcessing;
         private Bitmap _initImage;
+        private bool _isLoad;
 
         public MainForm()
         {
@@ -45,6 +46,7 @@ namespace ImageSpectrum
                 }
             );
 
+            _isLoad = false;
             button_GetImage.Enabled = true;
             button_GetSpectrum.Enabled = true;
             button_GetFilteredSpectrum.Enabled = false;
@@ -79,8 +81,8 @@ namespace ImageSpectrum
                         _imageProcessing =
                             new ImageProcessing(ImageProcessing.ConvertToHalftone(_initImage), width, height);
                     }
-                    
 
+                    _isLoad = true;
                     button_GetImage.Enabled = true;
                     button_GetSpectrum.Enabled = true;
                     button_GetFilteredSpectrum.Enabled = false;
@@ -90,11 +92,12 @@ namespace ImageSpectrum
 
                     CallImageForm("Исходное изображение", _initImage);
                     CallImageForm("Исходное изображение (полутоновое)", ImageProcessing.ConvertToHalftone(_initImage));
+                    CallImageForm("Исходное изображение (полутоновое и интерполированное)",
+                        _imageProcessing.InitImage.Bitmap);
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message, "Ошибка!");
-                    throw;
                 }
             }
         }
@@ -106,7 +109,10 @@ namespace ImageSpectrum
         /// <param name="e"></param>
         private void OnGetImage(object sender, EventArgs e)
         {
-            CallImageForm("Исходное изображение (полутоновое)", _imageProcessing.InitImage.Bitmap);
+            CallImageForm("Исходное изображение (полутоновое и интерполированное)", _imageProcessing.InitImage.Bitmap);
+            if (_isLoad)
+                CallImageForm("Исходное изображение (полутоновое)",
+                    ImageProcessing.ConvertToHalftone(_initImage));
         }
 
         /// <summary>
@@ -175,6 +181,17 @@ namespace ImageSpectrum
             _imageProcessing.RestoringImage(checkBox_isNoise.Checked);
 
             CallImageForm("Восстановленное изображение", _imageProcessing.RestoreImage.Bitmap);
+            if (_isLoad && rB_bilinearInterpolation.Checked)
+                CallImageForm("Восстановленное изображение (интерполированное)",
+                    Interpolation.BilinearInterpolation(_imageProcessing.RestoreImage.Bitmap,
+                        _imageProcessing.OldWidth,
+                        _imageProcessing.OldHeight));
+            else if (_isLoad && rB_zerosAdding.Checked)
+                CallImageForm("Восстановленное изображение (интерполированное)",
+                    ImageProcessing.ZerosCutoff(_imageProcessing.RestoreImage,
+                            _imageProcessing.OldWidth,
+                            _imageProcessing.OldHeight)
+                        .Bitmap);
 
             var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitImage, _imageProcessing.RestoreImage);
             textBox_SkoInitAndRestore.Text = sko.ToString("F5");
@@ -214,12 +231,12 @@ namespace ImageSpectrum
                 button_GetFilteredSpectrum.Enabled = false;
             }
         }
-        
+
         private void OnCheckedChangedCutoffCircle(object sender, EventArgs e)
         {
             numUpDown_radiusCutoff.Enabled = rB_cutoffCircle.Checked;
         }
-        
+
         private void OnCheckedChangedSmallEnergy(object sender, EventArgs e)
         {
             numUpDown_cutoffEnergy.Enabled = rB_cutoffSmallEnergy.Checked;
