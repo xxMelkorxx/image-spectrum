@@ -3,9 +3,16 @@ using System.Numerics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace ImageSpectrum
 {
+    public enum TypeAddOn
+    {
+        ZerosAdding,
+        BilinearInterpolation
+    }
+    
     internal class ImageProcessing
     {
         public int Width => InitImage.Width;
@@ -27,18 +34,26 @@ namespace ImageSpectrum
             InitImage = new MatrixImage(width, height);
         }
 
+        /// <summary>
+        /// Конструктор с дополнением к изображению нулей.
+        /// </summary>
+        /// <param name="bitmap"></param>
         public ImageProcessing(Bitmap bitmap)
         {
-            InitImage = new MatrixImage(bitmap.Width, bitmap.Height);
-
-            for (var i = 0; i < Width; i++)
-            for (var j = 0; j < Height; j++)
-            {
-                var pixel = bitmap.GetPixel(i, j);
-                InitImage.Matrix[i][j] = 0.299 * pixel.R + 0.587 * pixel.G + 0.114 * pixel.B;
-            }
-
+            InitImage = new MatrixImage(bitmap);
             InitImage = ZerosAdding(InitImage);
+        }
+            
+        /// <summary>
+        /// Конструктор с интерполяцией изображения.
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="width">Ширина изображения</param>
+        /// <param name="height">Высота изображения</param>
+        public ImageProcessing(Bitmap bitmap, int width, int height)
+        {
+            var newBitmap = Interpolation.BilinearInterpolation(bitmap, width, height);
+            InitImage = new MatrixImage(newBitmap);
         }
 
         /// <summary>
@@ -122,7 +137,7 @@ namespace ImageSpectrum
             if (isNoiseImage) SpectrumImage = FFT.FFT_2D(NoiseImage, true);
             else SpectrumImage = FFT.FFT_2D(InitImage, true);
         }
-        
+
         /// <summary>
         /// Фильтрация спектра от шума.
         /// </summary>
@@ -201,10 +216,23 @@ namespace ImageSpectrum
             return sumUp / sumDown;
         }
 
-        public static MatrixImage ZerosAdding(MatrixImage matrix)
+        public static Bitmap ConvertToHalftone(Bitmap bitmap)
         {
-            var width = matrix.Width;
-            var height = matrix.Height;
+            var newBitmap = new Bitmap(bitmap.Width, bitmap.Height);
+            
+            for (var i = 0; i < bitmap.Width; i++)
+            for (var j = 0; j < bitmap.Height; j++)
+            {
+                var pixel = bitmap.GetPixel(i, j);
+                var halftoneValue = (int)(0.299 * pixel.R + 0.587 * pixel.G + 0.114 * pixel.B);
+                newBitmap.SetPixel(i, j, Color.FromArgb(halftoneValue, halftoneValue, halftoneValue));
+            }
+
+            return newBitmap;
+        }
+
+        public static void SizeDegreesOfTwo(ref int width, ref int height)
+        {
             for (var newWidth = 2;; newWidth *= 2)
                 if (newWidth > width)
                 {
@@ -218,6 +246,13 @@ namespace ImageSpectrum
                     height = newHeight;
                     break;
                 }
+        } 
+        
+        public static MatrixImage ZerosAdding(MatrixImage matrix)
+        {
+            var width = matrix.Width;
+            var height = matrix.Height;
+            SizeDegreesOfTwo(ref width, ref height);
 
             var newMatrix = new MatrixImage(width, height, matrix.IsSpectrum);
             for (var i = 0; i < width; i++)
@@ -247,6 +282,18 @@ namespace ImageSpectrum
             for (var i = 0; i < width; i++)
                 Matrix[i] = new Complex[height];
         }
+        
+        public MatrixImage(Bitmap bitmap, bool isSpectrum = false)
+        {
+            IsSpectrum = isSpectrum;
+            Matrix = new Complex[bitmap.Width][];
+            for (var i = 0; i < Width; i++)
+            {
+                Matrix[i] = new Complex[bitmap.Height];
+                for (var j = 0; j < Height; j++)
+                    Matrix[i][j] = bitmap.GetPixel(i, j).R;
+            }
+        }
 
         public Bitmap Bitmap
         {
@@ -268,26 +315,40 @@ namespace ImageSpectrum
             get
             {
                 double max = 0;
-                if (!IsSpectrum)
+                for (var i = 0; i < Width; i++)
+                    if (Matrix[i].Max(j => j.Magnitude) > max)
+                        max = Matrix[i].Max(j => j.Magnitude);
+
+                var normMatrix = new double[Width][];
+                for (var i = 0; i < Width; i++)
                 {
-                    for (var i = 0; i < Width; i++)
-                        if (Matrix[i].Max(j => j.Magnitude) > max)
-                            max = Matrix[i].Max(j => j.Magnitude);
+                    normMatrix[i] = new double[Height];
+                    for (var j = 0; j < Height; j++)
+                        normMatrix[i][j] = Matrix[i][j].Magnitude / max * 255;
                 }
 
                 var matrixRgb = new int[Width][];
                 for (var i = 0; i < Width; i++)
                     matrixRgb[i] = new int[Height];
 
-                for (var i = 0; i < Width; i++)
-                for (var j = 0; j < Height; j++)
+                if (!IsSpectrum)            
+                    for (var i = 0; i < Width; i++)
+                    for (var j = 0; j < Height; j++)
+                        matrixRgb[i][j] = (int)normMatrix[i][j];
+                else
                 {
-                    if (IsSpectrum)
+                    double logMax = 0;
+                    for (var i = 0; i < Width; i++)
+                    for (var j = 0; j < Height; j++)
                     {
-                        matrixRgb[i][j] = (int)(Math.Log10(1 + Matrix[i][j].Magnitude) * 255);
-                        if (matrixRgb[i][j] > 255) matrixRgb[i][j] = 255;
+                        var value = Math.Sqrt(Math.Log(1 + normMatrix[i][j]));
+                        if (value > logMax)
+                            logMax = value;
                     }
-                    else matrixRgb[i][j] = (int)Math.Abs(Matrix[i][j].Magnitude / max * 255);
+
+                    for (var i = 0; i < Width; i++)
+                    for (var j = 0; j < Height; j++)
+                        matrixRgb[i][j] = (int)(Math.Sqrt(Math.Log(1 + normMatrix[i][j])) / logMax * 255);
                 }
 
                 return matrixRgb;

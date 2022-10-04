@@ -13,7 +13,7 @@ namespace ImageSpectrum
         {
             InitializeComponent();
         }
-        
+
         /// <summary>
         /// Событие генерации изображения из Гауссовых куполов.
         /// </summary>
@@ -21,8 +21,8 @@ namespace ImageSpectrum
         /// <param name="e"></param>
         private void OnClickButtonGenerateImage(object sender, EventArgs e)
         {
-            var width = (int)numUpDown_Width.Value;
-            var height = (int)numUpDown_Height.Value;
+            var width = (int)numUpDown_width.Value;
+            var height = (int)numUpDown_height.Value;
 
             _imageProcessing = new ImageProcessing(width, height);
             _imageProcessing.CreateGaussImage(
@@ -50,7 +50,7 @@ namespace ImageSpectrum
             button_GetFilteredSpectrum.Enabled = false;
             button_GetRestoredImage.Enabled = false;
             groupBox_paramsNoise.Enabled = true;
-            
+
             OnGetImage(null, null);
         }
 
@@ -70,15 +70,24 @@ namespace ImageSpectrum
                 try
                 {
                     _initImage = new Bitmap(dialog.FileName);
-                    _imageProcessing = new ImageProcessing(_initImage);
-            
+                    if (rB_zerosAdding.Checked)
+                        _imageProcessing = new ImageProcessing(ImageProcessing.ConvertToHalftone(_initImage));
+                    else if (rB_bilinearInterpolation.Checked)
+                    {
+                        var width = (int)numUpDown_width.Value;
+                        var height = (int)numUpDown_height.Value;
+                        _imageProcessing =
+                            new ImageProcessing(ImageProcessing.ConvertToHalftone(_initImage), width, height);
+                    }
+                    
+
                     button_GetImage.Enabled = true;
                     button_GetSpectrum.Enabled = true;
                     button_GetFilteredSpectrum.Enabled = false;
                     button_GetRestoredImage.Enabled = false;
                     groupBox_paramsNoise.Enabled = true;
                     checkBox_isNoise.Checked = false;
-            
+
                     CallImageForm("Исходное изображение", _initImage);
                     CallImageForm("Исходное изображение (полутоновое)", _imageProcessing.InitImage.Bitmap);
                 }
@@ -125,7 +134,7 @@ namespace ImageSpectrum
 
             CallImageForm("Спектр изображения", _imageProcessing.SpectrumImage.Bitmap);
         }
-        
+
         /// <summary>
         /// Событие на отображение отфильтрованного изображения.
         /// </summary>
@@ -134,12 +143,11 @@ namespace ImageSpectrum
         /// <exception cref="NotImplementedException"></exception>
         private void OnGetFilteredSpectrum(object sender, EventArgs e)
         {
-            _imageProcessing.FilteredSpectrum((double)numUpDown_CutoffEnergy.Value);
-            
-            CallImageForm("Отфильтрованный спектр", _imageProcessing.FilteredSpectrumImage.Bitmap);
-            
-            button_GetRestoredImage.Enabled = true;
+            _imageProcessing.FilteredSpectrum((double)numUpDown_cutoffEnergy.Value);
 
+            CallImageForm("Отфильтрованный спектр", _imageProcessing.FilteredSpectrumImage.Bitmap);
+
+            button_GetRestoredImage.Enabled = true;
         }
 
         /// <summary>
@@ -150,7 +158,7 @@ namespace ImageSpectrum
         private void OnGetRestoredImage(object sender, EventArgs e)
         {
             _imageProcessing.RestoringImage(checkBox_isNoise.Checked);
-            
+
             CallImageForm("Восстановленное изображение", _imageProcessing.RestoreImage.Bitmap);
 
             var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitImage, _imageProcessing.RestoreImage);
@@ -166,9 +174,9 @@ namespace ImageSpectrum
         {
             if (checkBox_isNoise.Checked)
             {
-                _imageProcessing.AddNoise((double)numUpDown_SNR.Value);
+                _imageProcessing.AddNoise((double)numUpDown_snr.Value);
                 var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitImage, _imageProcessing.NoiseImage);
-                textBox_SkoInitAndNoise.Text = sko.ToString("F5");    
+                textBox_SkoInitAndNoise.Text = sko.ToString("F5");
             }
         }
 

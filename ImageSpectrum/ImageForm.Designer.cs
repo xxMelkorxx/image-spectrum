@@ -39,6 +39,7 @@
 			this.pictBox_Image.Location = new System.Drawing.Point(12, 12);
 			this.pictBox_Image.Name = "pictBox_Image";
 			this.pictBox_Image.Size = new System.Drawing.Size(512, 512);
+			this.pictBox_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictBox_Image.TabIndex = 1;
 			this.pictBox_Image.TabStop = false;
 			// 
@@ -54,6 +55,7 @@
 			this.Text = "ImageForm";
 			((System.ComponentModel.ISupportInitialize)(this.pictBox_Image)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 		}
 
 		#endregion

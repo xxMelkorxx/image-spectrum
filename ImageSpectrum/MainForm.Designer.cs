@@ -71,16 +71,16 @@
 			this.numUpDown_shiftX1 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_sigmaX1 = new System.Windows.Forms.NumericUpDown();
 			this.numUpDown_a1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_Height = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_Width = new System.Windows.Forms.NumericUpDown();
+			this.numUpDown_height = new System.Windows.Forms.NumericUpDown();
+			this.numUpDown_width = new System.Windows.Forms.NumericUpDown();
 			this.textBox_SkoInitAndNoise = new System.Windows.Forms.TextBox();
 			this.textBox_SkoInitAndRestore = new System.Windows.Forms.TextBox();
-			this.numUpDown_CutoffEnergy = new System.Windows.Forms.NumericUpDown();
-			this.radioButton2 = new System.Windows.Forms.RadioButton();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.numUpDown_cutoffEnergy = new System.Windows.Forms.NumericUpDown();
+			this.rB_bilinearInterpolation = new System.Windows.Forms.RadioButton();
+			this.rB_zerosAdding = new System.Windows.Forms.RadioButton();
 			this.groupBox_paramsNoise = new System.Windows.Forms.GroupBox();
 			this.checkBox_isNoise = new System.Windows.Forms.CheckBox();
-			this.numUpDown_SNR = new System.Windows.Forms.NumericUpDown();
+			this.numUpDown_snr = new System.Windows.Forms.NumericUpDown();
 			this.button_GetSpectrum = new System.Windows.Forms.Button();
 			this.button_LoadImage = new System.Windows.Forms.Button();
 			this.button_GetImage = new System.Windows.Forms.Button();
@@ -135,14 +135,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a1)).BeginInit();
 			groupBox_paramImage.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Height)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Width)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_height)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_width)).BeginInit();
 			groupBox_Sko.SuspendLayout();
 			groupBox_paramFiltered.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_CutoffEnergy)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_cutoffEnergy)).BeginInit();
 			groupBox_AdditionImage.SuspendLayout();
 			this.groupBox_paramsNoise.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_SNR)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_snr)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox_paramsDome3
@@ -554,9 +554,9 @@
 			// groupBox_paramImage
 			// 
 			groupBox_paramImage.Controls.Add(label_Height);
-			groupBox_paramImage.Controls.Add(this.numUpDown_Height);
+			groupBox_paramImage.Controls.Add(this.numUpDown_height);
 			groupBox_paramImage.Controls.Add(label_Width);
-			groupBox_paramImage.Controls.Add(this.numUpDown_Width);
+			groupBox_paramImage.Controls.Add(this.numUpDown_width);
 			groupBox_paramImage.Location = new System.Drawing.Point(12, 12);
 			groupBox_paramImage.Name = "groupBox_paramImage";
 			groupBox_paramImage.Size = new System.Drawing.Size(191, 79);
@@ -574,18 +574,18 @@
 			label_Height.TabIndex = 10;
 			label_Height.Text = "Высота:";
 			// 
-			// numUpDown_Height
+			// numUpDown_height
 			// 
-			this.numUpDown_Height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_Height.Increment = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_Height.Location = new System.Drawing.Point(104, 48);
-			this.numUpDown_Height.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
-			this.numUpDown_Height.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-			this.numUpDown_Height.Name = "numUpDown_Height";
-			this.numUpDown_Height.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_Height.TabIndex = 11;
-			this.numUpDown_Height.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_Height.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			this.numUpDown_height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_height.Increment = new decimal(new int[] { 512, 0, 0, 0 });
+			this.numUpDown_height.Location = new System.Drawing.Point(104, 48);
+			this.numUpDown_height.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+			this.numUpDown_height.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+			this.numUpDown_height.Name = "numUpDown_height";
+			this.numUpDown_height.Size = new System.Drawing.Size(80, 22);
+			this.numUpDown_height.TabIndex = 11;
+			this.numUpDown_height.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_height.Value = new decimal(new int[] { 512, 0, 0, 0 });
 			// 
 			// label_Width
 			// 
@@ -597,18 +597,18 @@
 			label_Width.TabIndex = 8;
 			label_Width.Text = "Ширина:";
 			// 
-			// numUpDown_Width
+			// numUpDown_width
 			// 
-			this.numUpDown_Width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_Width.Increment = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_Width.Location = new System.Drawing.Point(104, 20);
-			this.numUpDown_Width.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
-			this.numUpDown_Width.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-			this.numUpDown_Width.Name = "numUpDown_Width";
-			this.numUpDown_Width.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_Width.TabIndex = 9;
-			this.numUpDown_Width.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_Width.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			this.numUpDown_width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_width.Increment = new decimal(new int[] { 512, 0, 0, 0 });
+			this.numUpDown_width.Location = new System.Drawing.Point(104, 20);
+			this.numUpDown_width.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+			this.numUpDown_width.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+			this.numUpDown_width.Name = "numUpDown_width";
+			this.numUpDown_width.Size = new System.Drawing.Size(80, 22);
+			this.numUpDown_width.TabIndex = 9;
+			this.numUpDown_width.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_width.Value = new decimal(new int[] { 512, 0, 0, 0 });
 			// 
 			// groupBox_Sko
 			// 
@@ -674,7 +674,7 @@
 			// groupBox_paramFiltered
 			// 
 			groupBox_paramFiltered.Controls.Add(label_CutoffEnergy);
-			groupBox_paramFiltered.Controls.Add(this.numUpDown_CutoffEnergy);
+			groupBox_paramFiltered.Controls.Add(this.numUpDown_cutoffEnergy);
 			groupBox_paramFiltered.Location = new System.Drawing.Point(209, 264);
 			groupBox_paramFiltered.Name = "groupBox_paramFiltered";
 			groupBox_paramFiltered.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -683,21 +683,21 @@
 			groupBox_paramFiltered.TabStop = false;
 			groupBox_paramFiltered.Text = "Параметры фильтрации";
 			// 
-			// numUpDown_CutoffEnergy
+			// numUpDown_cutoffEnergy
 			// 
-			this.numUpDown_CutoffEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_CutoffEnergy.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_CutoffEnergy.Location = new System.Drawing.Point(104, 45);
-			this.numUpDown_CutoffEnergy.Name = "numUpDown_CutoffEnergy";
-			this.numUpDown_CutoffEnergy.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_CutoffEnergy.TabIndex = 5;
-			this.numUpDown_CutoffEnergy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_CutoffEnergy.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.numUpDown_cutoffEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_cutoffEnergy.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.numUpDown_cutoffEnergy.Location = new System.Drawing.Point(104, 45);
+			this.numUpDown_cutoffEnergy.Name = "numUpDown_cutoffEnergy";
+			this.numUpDown_cutoffEnergy.Size = new System.Drawing.Size(80, 22);
+			this.numUpDown_cutoffEnergy.TabIndex = 5;
+			this.numUpDown_cutoffEnergy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_cutoffEnergy.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// groupBox_AdditionImage
 			// 
-			groupBox_AdditionImage.Controls.Add(this.radioButton2);
-			groupBox_AdditionImage.Controls.Add(this.radioButton1);
+			groupBox_AdditionImage.Controls.Add(this.rB_bilinearInterpolation);
+			groupBox_AdditionImage.Controls.Add(this.rB_zerosAdding);
 			groupBox_AdditionImage.Location = new System.Drawing.Point(209, 12);
 			groupBox_AdditionImage.Name = "groupBox_AdditionImage";
 			groupBox_AdditionImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -706,31 +706,31 @@
 			groupBox_AdditionImage.TabStop = false;
 			groupBox_AdditionImage.Text = "Дополнение изображения";
 			// 
-			// radioButton2
+			// rB_bilinearInterpolation
 			// 
-			this.radioButton2.Location = new System.Drawing.Point(7, 48);
-			this.radioButton2.Name = "radioButton2";
-			this.radioButton2.Size = new System.Drawing.Size(374, 18);
-			this.radioButton2.TabIndex = 1;
-			this.radioButton2.Text = "Билинейная интерполяция";
-			this.radioButton2.UseVisualStyleBackColor = true;
+			this.rB_bilinearInterpolation.Location = new System.Drawing.Point(7, 48);
+			this.rB_bilinearInterpolation.Name = "rB_bilinearInterpolation";
+			this.rB_bilinearInterpolation.Size = new System.Drawing.Size(374, 18);
+			this.rB_bilinearInterpolation.TabIndex = 1;
+			this.rB_bilinearInterpolation.Text = "Билинейная интерполяция";
+			this.rB_bilinearInterpolation.UseVisualStyleBackColor = true;
 			// 
-			// radioButton1
+			// rB_zerosAdding
 			// 
-			this.radioButton1.Checked = true;
-			this.radioButton1.Location = new System.Drawing.Point(7, 20);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(374, 18);
-			this.radioButton1.TabIndex = 0;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Дополнение нулями";
-			this.radioButton1.UseVisualStyleBackColor = true;
+			this.rB_zerosAdding.Checked = true;
+			this.rB_zerosAdding.Location = new System.Drawing.Point(7, 20);
+			this.rB_zerosAdding.Name = "rB_zerosAdding";
+			this.rB_zerosAdding.Size = new System.Drawing.Size(374, 18);
+			this.rB_zerosAdding.TabIndex = 0;
+			this.rB_zerosAdding.TabStop = true;
+			this.rB_zerosAdding.Text = "Дополнение нулями";
+			this.rB_zerosAdding.UseVisualStyleBackColor = true;
 			// 
 			// groupBox_paramsNoise
 			// 
 			this.groupBox_paramsNoise.Controls.Add(this.checkBox_isNoise);
 			this.groupBox_paramsNoise.Controls.Add(label_SNR);
-			this.groupBox_paramsNoise.Controls.Add(this.numUpDown_SNR);
+			this.groupBox_paramsNoise.Controls.Add(this.numUpDown_snr);
 			this.groupBox_paramsNoise.Enabled = false;
 			this.groupBox_paramsNoise.Location = new System.Drawing.Point(12, 264);
 			this.groupBox_paramsNoise.Name = "groupBox_paramsNoise";
@@ -754,18 +754,18 @@
 			this.checkBox_isNoise.UseVisualStyleBackColor = true;
 			this.checkBox_isNoise.CheckedChanged += new System.EventHandler(this.OnCheckedChangedCheckBoxIsNoise);
 			// 
-			// numUpDown_SNR
+			// numUpDown_snr
 			// 
-			this.numUpDown_SNR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_SNR.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_SNR.Location = new System.Drawing.Point(104, 45);
-			this.numUpDown_SNR.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-			this.numUpDown_SNR.Name = "numUpDown_SNR";
-			this.numUpDown_SNR.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_SNR.TabIndex = 5;
-			this.numUpDown_SNR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_SNR.Value = new decimal(new int[] { 30, 0, 0, 0 });
-			this.numUpDown_SNR.ValueChanged += new System.EventHandler(this.OnAddNoiseToImage);
+			this.numUpDown_snr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.numUpDown_snr.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.numUpDown_snr.Location = new System.Drawing.Point(104, 45);
+			this.numUpDown_snr.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+			this.numUpDown_snr.Name = "numUpDown_snr";
+			this.numUpDown_snr.Size = new System.Drawing.Size(80, 22);
+			this.numUpDown_snr.TabIndex = 5;
+			this.numUpDown_snr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numUpDown_snr.Value = new decimal(new int[] { 30, 0, 0, 0 });
+			this.numUpDown_snr.ValueChanged += new System.EventHandler(this.OnAddNoiseToImage);
 			// 
 			// button_GetSpectrum
 			// 
@@ -897,24 +897,24 @@
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a1)).EndInit();
 			groupBox_paramImage.ResumeLayout(false);
 			groupBox_paramImage.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Height)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_Width)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_height)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_width)).EndInit();
 			groupBox_Sko.ResumeLayout(false);
 			groupBox_Sko.PerformLayout();
 			groupBox_paramFiltered.ResumeLayout(false);
 			groupBox_paramFiltered.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_CutoffEnergy)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_cutoffEnergy)).EndInit();
 			groupBox_AdditionImage.ResumeLayout(false);
 			this.groupBox_paramsNoise.ResumeLayout(false);
 			this.groupBox_paramsNoise.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_SNR)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numUpDown_snr)).EndInit();
 			this.ResumeLayout(false);
 		}
 
-		private System.Windows.Forms.RadioButton radioButton1;
-		private System.Windows.Forms.RadioButton radioButton2;
+		private System.Windows.Forms.RadioButton rB_zerosAdding;
+		private System.Windows.Forms.RadioButton rB_bilinearInterpolation;
 
-		private System.Windows.Forms.NumericUpDown numUpDown_CutoffEnergy;
+		private System.Windows.Forms.NumericUpDown numUpDown_cutoffEnergy;
 
 		private System.Windows.Forms.TextBox textBox_SkoInitAndNoise;
 
@@ -945,12 +945,12 @@
 		private System.Windows.Forms.NumericUpDown numUpDown_a1;
 		private System.Windows.Forms.Button button_GetSpectrum;
 		private System.Windows.Forms.Button button_LoadImage;
-		private System.Windows.Forms.NumericUpDown numUpDown_SNR;
+		private System.Windows.Forms.NumericUpDown numUpDown_snr;
 		private System.Windows.Forms.Button button_GetImage;
 		private System.Windows.Forms.Button button_GetNoiseImage;
 		private System.Windows.Forms.CheckBox checkBox_isNoise;
-		private System.Windows.Forms.NumericUpDown numUpDown_Height;
-		private System.Windows.Forms.NumericUpDown numUpDown_Width;
+		private System.Windows.Forms.NumericUpDown numUpDown_height;
+		private System.Windows.Forms.NumericUpDown numUpDown_width;
 	}
 }
 

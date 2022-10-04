@@ -16,8 +16,8 @@ namespace ImageSpectrum
 		{
 			InitializeComponent();
 			this.Text = header;
-			this.pictBox_Image.Width = bitmap.Width;
-			this.pictBox_Image.Height = bitmap.Height;
+			// this.pictBox_Image.Width = bitmap.Width;
+			// this.pictBox_Image.Height = bitmap.Height;
 			this.pictBox_Image.Image = bitmap;
 		}
 	}
