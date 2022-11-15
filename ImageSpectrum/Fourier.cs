@@ -6,47 +6,45 @@ namespace ImageSpectrum
     /// <summary>
     /// Быстрое преобразование Фурье.
     /// </summary>
-    public static class FFT
+    public static class Fourier
     {
-        public const double DoublePi = 2 * Math.PI;
-
         /// <summary>
-        /// Децимация по частоте.
+        /// Быстрое преобразование Фурье.
         /// </summary>
         /// <param name="frame">Массив комлексных чисел.</param>
         /// <param name="direct">Прямой ход?</param>
         /// <returns></returns>
-        public static Complex[] DecimationInFrequency(Complex[] frame, bool direct)
+        public static Complex[] FFT(Complex[] frame, bool direct)
         {
             if (frame.Length == 1) return frame;
-            var halfSampleSize = frame.Length >> 1;
-            var fullSampleSize = frame.Length;
+            var halfSize = frame.Length >> 1;
+            var size = frame.Length;
 
-            var arg = direct ? -DoublePi / fullSampleSize : DoublePi / fullSampleSize;
-            var omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
-            var omega = Complex.One;
-            var spectrum = new Complex[fullSampleSize];
+            var arg = direct ? -2 * Math.PI / size : 2 * Math.PI / size;
+			var omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
+			var omega = Complex.One;
+            var spectrum = new Complex[size];
 
-            for (var j = 0; j < halfSampleSize; j++)
+            for (var j = 0; j < halfSize; j++)
             {
-                spectrum[j] = frame[j] + frame[j + halfSampleSize];
-                spectrum[j + halfSampleSize] = omega * (frame[j] - frame[j + halfSampleSize]);
+                spectrum[j] = frame[j] + frame[j + halfSize];
+                spectrum[j + halfSize] = omega * (frame[j] - frame[j + halfSize]);
                 omega *= omegaPowBase;
             }
 
-            var yTop = new Complex[halfSampleSize];
-            var yBottom = new Complex[halfSampleSize];
-            for (var i = 0; i < halfSampleSize; i++)
+            var yTop = new Complex[halfSize];
+            var yBottom = new Complex[halfSize];
+            for (var i = 0; i < halfSize; i++)
             {
                 yTop[i] = spectrum[i];
-                yBottom[i] = spectrum[i + halfSampleSize];
+                yBottom[i] = spectrum[i + halfSize];
             }
 
-            yTop = DecimationInFrequency(yTop, direct);
-            yBottom = DecimationInFrequency(yBottom, direct);
-            for (var i = 0; i < halfSampleSize; i++)
+            yTop = FFT(yTop, direct);
+            yBottom = FFT(yBottom, direct);
+            for (var i = 0; i < halfSize; i++)
             {
-                var j = i << 1; // i = 2*j;
+                var j = i << 1;
                 spectrum[j] = yTop[i];
                 spectrum[j + 1] = yBottom[i];
             }
@@ -54,27 +52,27 @@ namespace ImageSpectrum
             return spectrum;
         }
 
-        public static MatrixImage FFT_2D(MatrixImage frame, bool direct)
+        public static ComplexMatrix FFT_2D(ComplexMatrix frame, bool direct)
         {
             var width = frame.Width;
             var height = frame.Height;
-            var spectrum = new MatrixImage(width, height, !frame.IsSpectrum);
+            var result = new ComplexMatrix(width, height, !frame.IsSpectrum);
             
             if (!direct) frame = AngularTransform(frame);
             for (var i = 0; i < width; i++)
-                spectrum.Matrix[i] = DecimationInFrequency(frame.Matrix[i], direct);
-            spectrum = Transform(spectrum);
+                result.Matrix[i] = FFT(frame.Matrix[i], direct);
+            result = Transform(result);
             for (var i = 0; i < height; i++)
-                spectrum.Matrix[i] = DecimationInFrequency(spectrum.Matrix[i], direct);
-            spectrum = Transform(spectrum);
-            if (direct) spectrum = AngularTransform(spectrum);
+                result.Matrix[i] = FFT(result.Matrix[i], direct);
+            result = Transform(result);
+            if (direct) result = AngularTransform(result);
 
             if (!direct)
                 for (var i = 0; i < width; i++)
                 for (var j = 0; j < height; j++)
-                    spectrum.Matrix[i][j] /= width * height;
+                    result.Matrix[i][j] /= width * height;
 
-            return spectrum;
+            return result;
         }
 
         /// <summary>
@@ -82,11 +80,11 @@ namespace ImageSpectrum
         /// </summary>
         /// <param name="init">Исходная матрица</param>
         /// <returns>Трансвонированная матрица</returns>
-        public static MatrixImage Transform(MatrixImage init)
+        public static ComplexMatrix Transform(ComplexMatrix init)
         {
             var width = init.Width;
             var height = init.Height;
-            var result = new MatrixImage(height, width, init.IsSpectrum);
+            var result = new ComplexMatrix(height, width, init.IsSpectrum);
             
             for (var i = 0; i < height; i++)
             for (var j = 0; j < width; j++)
@@ -98,13 +96,13 @@ namespace ImageSpectrum
         /// <summary>
         /// Трансформация спектра, чтобы основная энергия была сконцентрирована в центре.
         /// </summary>
-        public static MatrixImage AngularTransform(MatrixImage spectrum)
+        public static ComplexMatrix AngularTransform(ComplexMatrix spectrum)
         {
             var width = spectrum.Width;
             var height = spectrum.Height;
             var halfWidth = width >> 1;
             var halfHeight = height >> 1;
-            var result = new MatrixImage(width, height, spectrum.IsSpectrum);
+            var result = new ComplexMatrix(width, height, spectrum.IsSpectrum);
 
             for (var i = 0; i < halfWidth; i++)
             for (var j = 0; j < halfHeight; j++)

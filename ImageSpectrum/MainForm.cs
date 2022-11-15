@@ -28,22 +28,10 @@ namespace ImageSpectrum
             _imageProcessing = new ImageProcessing(width, height);
             _imageProcessing.CreateGaussImage(
                 new[] { (double)numUpDown_a1.Value, (double)numUpDown_a2.Value, (double)numUpDown_a3.Value },
-                new[]
-                {
-                    (double)numUpDown_sigmaX1.Value, (double)numUpDown_sigmaX2.Value, (double)numUpDown_sigmaX3.Value
-                },
-                new[]
-                {
-                    (double)numUpDown_sigmaY1.Value, (double)numUpDown_sigmaY2.Value, (double)numUpDown_sigmaY3.Value
-                },
-                new[]
-                {
-                    (double)numUpDown_shiftX1.Value, (double)numUpDown_shiftX2.Value, (double)numUpDown_shiftX3.Value
-                },
-                new[]
-                {
-                    (double)numUpDown_shiftY1.Value, (double)numUpDown_shiftY2.Value, (double)numUpDown_shiftY3.Value
-                }
+                new[] { (double)numUpDown_sigmaX1.Value, (double)numUpDown_sigmaX2.Value, (double)numUpDown_sigmaX3.Value },
+                new[] { (double)numUpDown_sigmaY1.Value, (double)numUpDown_sigmaY2.Value, (double)numUpDown_sigmaY3.Value },
+                new[] { (double)numUpDown_shiftX1.Value, (double)numUpDown_shiftX2.Value, (double)numUpDown_shiftX3.Value },
+                new[] { (double)numUpDown_shiftY1.Value, (double)numUpDown_shiftY2.Value, (double)numUpDown_shiftY3.Value }
             );
 
             _isLoad = false;
@@ -73,13 +61,12 @@ namespace ImageSpectrum
                 {
                     _initImage = new Bitmap(dialog.FileName);
                     if (rB_zerosAdding.Checked)
-                        _imageProcessing = new ImageProcessing(ImageProcessing.ConvertToHalftone(_initImage));
+                        _imageProcessing = new ImageProcessing(_initImage);
                     else if (rB_bilinearInterpolation.Checked)
                     {
                         var width = (int)numUpDown_width.Value;
                         var height = (int)numUpDown_height.Value;
-                        _imageProcessing =
-                            new ImageProcessing(ImageProcessing.ConvertToHalftone(_initImage), width, height);
+                        _imageProcessing = new ImageProcessing(_initImage, width, height);
                     }
 
                     _isLoad = true;
@@ -90,10 +77,8 @@ namespace ImageSpectrum
                     groupBox_paramsNoise.Enabled = true;
                     checkBox_isNoise.Checked = false;
 
-                    CallImageForm("Исходное изображение", _initImage);
-                    CallImageForm("Исходное изображение (полутоновое)", ImageProcessing.ConvertToHalftone(_initImage));
-                    CallImageForm("Исходное изображение (полутоновое и интерполированное)",
-                        _imageProcessing.InitImage.Bitmap);
+                    CallImageForm("Исходное изображение", _imageProcessing.InitImage);
+                    CallImageForm("Исходное изображение (интерполированное)", _imageProcessing.InitMatrix.GetBitmap());
                 }
                 catch (Exception exception)
                 {
@@ -109,10 +94,9 @@ namespace ImageSpectrum
         /// <param name="e"></param>
         private void OnGetImage(object sender, EventArgs e)
         {
-            CallImageForm("Исходное изображение (полутоновое и интерполированное)", _imageProcessing.InitImage.Bitmap);
+            CallImageForm("Исходное изображение", _imageProcessing.InitImage);
             if (_isLoad)
-                CallImageForm("Исходное изображение (полутоновое)",
-                    ImageProcessing.ConvertToHalftone(_initImage));
+                CallImageForm("Исходное изображение (интерполированное)", _imageProcessing.InitMatrix.GetBitmap());
         }
 
         /// <summary>
@@ -122,7 +106,7 @@ namespace ImageSpectrum
         /// <param name="e"></param>
         private void OnGetNoiseImage(object sender, EventArgs e)
         {
-            CallImageForm("Зашумлённое изображение", _imageProcessing.NoiseImage.Bitmap);
+            CallImageForm("Зашумлённое изображение", _imageProcessing.NoiseMatrix.GetBitmap());
         }
 
         /// <summary>
@@ -138,7 +122,7 @@ namespace ImageSpectrum
                 button_GetFilteredSpectrum.Enabled = true;
             else button_GetRestoredImage.Enabled = true;
 
-            CallImageForm("Спектр изображения", _imageProcessing.SpectrumImage.Bitmap);
+            CallImageForm("Спектр изображения", _imageProcessing.SpectrumMatrix.GetBitmap());
         }
 
         /// <summary>
@@ -149,24 +133,12 @@ namespace ImageSpectrum
         /// <exception cref="NotImplementedException"></exception>
         private void OnGetFilteredSpectrum(object sender, EventArgs e)
         {
-            var typeFiltration = rB_cutoffCircle.Checked ? TypeFiltration.Circle : TypeFiltration.SmallEnergy;
-            switch (typeFiltration)
-            {
-                case TypeFiltration.Circle:
-                {
-                    var radiusCutoff = (double)numUpDown_radiusCutoff.Value;
-                    _imageProcessing.FilteredSpectrumCircleCutoff(radiusCutoff);
-                    break;
-                }
-                case TypeFiltration.SmallEnergy:
-                {
-                    var cutoffEnergy = (double)numUpDown_cutoffEnergy.Value;
-                    _imageProcessing.FilteredSpectrumSmallEnergyCutoff(cutoffEnergy);
-                    break;
-                }
-            }
+            if (rB_cutoffCircle.Checked)
+                _imageProcessing.FilteredSpectrumCircleCutoff((double)numUpDown_radiusCutoff.Value);
+            else if (rB_cutoffSmallEnergy.Checked)
+                _imageProcessing.FilteredSpectrumSmallEnergyCutoff((double)numUpDown_cutoffEnergy.Value);
 
-            CallImageForm("Отфильтрованный спектр", _imageProcessing.FilteredSpectrumImage.Bitmap);
+            CallImageForm("Отфильтрованный спектр", _imageProcessing.FilteredSpectrumMatrix.GetBitmap());
 
             button_GetRestoredImage.Enabled = true;
         }
@@ -179,21 +151,10 @@ namespace ImageSpectrum
         private void OnGetRestoredImage(object sender, EventArgs e)
         {
             _imageProcessing.RestoringImage(checkBox_isNoise.Checked);
-
-            CallImageForm("Восстановленное изображение", _imageProcessing.RestoreImage.Bitmap);
-            if (_isLoad && rB_bilinearInterpolation.Checked)
-                CallImageForm("Восстановленное изображение (интерполированное)",
-                    Interpolation.BilinearInterpolation(_imageProcessing.RestoreImage.Bitmap,
-                        _imageProcessing.OldWidth,
-                        _imageProcessing.OldHeight));
-            else if (_isLoad && rB_zerosAdding.Checked)
-                CallImageForm("Восстановленное изображение (интерполированное)",
-                    ImageProcessing.ZerosCutoff(_imageProcessing.RestoreImage,
-                            _imageProcessing.OldWidth,
-                            _imageProcessing.OldHeight)
-                        .Bitmap);
-
-            var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitImage, _imageProcessing.RestoreImage);
+            CallImageForm("Восстановленное изображение", _imageProcessing.RestoredMatrix.GetBitmap());
+            if (_isLoad)
+                CallImageForm("Восстановленное изображение (интерполированное)", _imageProcessing.RestoredImage);
+            var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitMatrix, _imageProcessing.RestoredMatrix);
             textBox_SkoInitAndRestore.Text = sko.ToString("F5");
         }
 
@@ -207,7 +168,7 @@ namespace ImageSpectrum
             if (checkBox_isNoise.Checked)
             {
                 _imageProcessing.AddNoise((double)numUpDown_snr.Value);
-                var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitImage, _imageProcessing.NoiseImage);
+                var sko = ImageProcessing.GetStandardDeviation(_imageProcessing.InitMatrix, _imageProcessing.NoiseMatrix);
                 textBox_SkoInitAndNoise.Text = sko.ToString("F5");
             }
         }

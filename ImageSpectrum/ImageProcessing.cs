@@ -6,25 +6,42 @@ using System.Drawing;
 
 namespace ImageSpectrum
 {
-    public enum TypeFiltration
+    public enum TypeInterpolation
     {
-        Circle,
-        SmallEnergy
+        Bilinear,
+        ZerosAdding,
+        None
     }
 
     internal class ImageProcessing
     {
-        public int Width => InitImage.Width;
-        public int Height => InitImage.Height;
+        public ComplexMatrix InitMatrix;
+        public ComplexMatrix NoiseMatrix;
+        public ComplexMatrix SpectrumMatrix;
+        public ComplexMatrix FilteredSpectrumMatrix;
+        public ComplexMatrix RestoredMatrix;
+        
+        public Bitmap InitImage;
 
-        public MatrixImage InitImage;
-        public MatrixImage NoiseImage;
-        public MatrixImage SpectrumImage;
-        public MatrixImage FilteredSpectrumImage;
-        public MatrixImage RestoreImage;
+        public Bitmap RestoredImage
+        {
+            get
+            {
+                if (_typeInterpolation == TypeInterpolation.Bilinear)
+                    return Interpolation.BilinearInterpolation(RestoredMatrix.GetBitmap(), _oldWidth, _oldHeight);
+                if (_typeInterpolation == TypeInterpolation.ZerosAdding)
+                    return ZerosCutoff(RestoredMatrix, _oldWidth, _oldHeight).GetBitmap();
+                return RestoredMatrix.GetBitmap();
+            }
+        }
+        
+        private int Width => InitMatrix.Width;
+        private int Height => InitMatrix.Height;
 
-        public int OldWidth, OldHeight;
-
+        private TypeInterpolation _typeInterpolation;
+        private int _oldWidth;
+        private int _oldHeight;
+        
         /// <summary>
         /// Конструктор.
         /// </summary>
@@ -32,7 +49,8 @@ namespace ImageSpectrum
         /// <param name="height">Высота изображения</param>
         public ImageProcessing(int width, int height)
         {
-            InitImage = new MatrixImage(width, height);
+            _typeInterpolation = TypeInterpolation.None;
+            InitMatrix = new ComplexMatrix(width, height);
         }
 
         /// <summary>
@@ -41,10 +59,13 @@ namespace ImageSpectrum
         /// <param name="bitmap"></param>
         public ImageProcessing(Bitmap bitmap)
         {
-            OldWidth = bitmap.Width;
-            OldHeight = bitmap.Height;
-            InitImage = new MatrixImage(bitmap);
-            InitImage = ZerosAdding(InitImage);
+            _typeInterpolation = TypeInterpolation.ZerosAdding;
+            _oldWidth = bitmap.Width;
+            _oldHeight = bitmap.Height;
+
+            InitImage = ConvertToHalftone(bitmap);
+            InitMatrix = new ComplexMatrix(InitImage);
+            InitMatrix = ZerosAdding(InitMatrix);
         }
 
         /// <summary>
@@ -55,10 +76,12 @@ namespace ImageSpectrum
         /// <param name="height">Высота изображения</param>
         public ImageProcessing(Bitmap bitmap, int width, int height)
         {
-            OldWidth = bitmap.Width;
-            OldHeight = bitmap.Height;
-            var newBitmap = Interpolation.BilinearInterpolation(bitmap, width, height);
-            InitImage = new MatrixImage(newBitmap);
+            _typeInterpolation = TypeInterpolation.Bilinear;
+            _oldWidth = bitmap.Width;
+            _oldHeight = bitmap.Height;
+
+            InitImage = ConvertToHalftone(bitmap);
+            InitMatrix = new ComplexMatrix(Interpolation.BilinearInterpolation(InitImage, width, height));
         }
 
         /// <summary>
@@ -72,8 +95,7 @@ namespace ImageSpectrum
         /// <param name="shiftX">Сдвиг по X</param>
         /// <param name="shiftY">Сдвиг по Y.</param>
         /// <returns>Возвращает значение в точке (x,y).</returns>
-        private static double GaussFunction(double x, double y, double a, double sigmaX, double sigmaY, double shiftX,
-            double shiftY)
+        private static double GaussFunction(double x, double y, double a, double sigmaX, double sigmaY, double shiftX, double shiftY)
         {
             return a * Math.Exp(-(Math.Pow((x - shiftX) / sigmaX, 2) + Math.Pow((y - shiftY) / sigmaY, 2)));
         }
@@ -86,13 +108,14 @@ namespace ImageSpectrum
         /// <param name="sigmaY"></param>
         /// <param name="shiftX"></param>
         /// <param name="shiftY"></param>
-        public void CreateGaussImage(double[] a, double[] sigmaX, double[] sigmaY, double[] shiftX,
-            double[] shiftY)
+        public void CreateGaussImage(double[] a, double[] sigmaX, double[] sigmaY, double[] shiftX, double[] shiftY)
         {
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Height; j++)
             for (var k = 0; k < a.Length; k++)
-                InitImage.Matrix[i][j] += GaussFunction(i, j, a[k], sigmaX[k], sigmaY[k], shiftX[k], shiftY[k]);
+                InitMatrix.Matrix[i][j] += GaussFunction(i, j, a[k], sigmaX[k], sigmaY[k], shiftX[k], shiftY[k]);
+            
+            InitImage = InitMatrix.GetBitmap();
         }
 
         /// <summary>
@@ -114,7 +137,7 @@ namespace ImageSpectrum
             // Подсчёт энергии шума относительно энергии.
             double energySignal = 0;
             for (var i = 0; i < Width; i++)
-                energySignal += InitImage.Matrix[i].Sum(j => j.Magnitude * j.Magnitude);
+                energySignal += InitMatrix.Matrix[i].Sum(j => j.Magnitude * j.Magnitude);
             var energyNoise = energySignal * (snr / 100.0);
 
             // Нормировка случайной последовательности.
@@ -123,10 +146,10 @@ namespace ImageSpectrum
                 randomValues[i, j] *= Math.Sqrt(energyNoise / energyRandValues);
 
             // Накладывание шума на исходный сигнал.
-            NoiseImage = new MatrixImage(Width, Height);
+            NoiseMatrix = new ComplexMatrix(Width, Height);
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Height; j++)
-                NoiseImage.Matrix[i][j] = InitImage.Matrix[i][j] + randomValues[i, j];
+                NoiseMatrix.Matrix[i][j] = InitMatrix.Matrix[i][j] + randomValues[i, j];
         }
 
         /// <summary>
@@ -135,8 +158,8 @@ namespace ImageSpectrum
         /// <param name="isNoiseImage"></param>
         public void CalculateSpectrum(bool isNoiseImage = false)
         {
-            if (isNoiseImage) SpectrumImage = FFT.FFT_2D(NoiseImage, true);
-            else SpectrumImage = FFT.FFT_2D(InitImage, true);
+            if (isNoiseImage) SpectrumMatrix = Fourier.FFT_2D(NoiseMatrix, true);
+            else SpectrumMatrix = Fourier.FFT_2D(InitMatrix, true);
         }
 
         /// <summary>
@@ -145,19 +168,18 @@ namespace ImageSpectrum
         /// <param name="cutoff">Процент энергии относительно энергии спектра, отсекаемая для фильтрации</param>
         public void FilteredSpectrumSmallEnergyCutoff(double cutoff)
         {
-            FilteredSpectrumImage = new MatrixImage(Width, Height, true);
+            FilteredSpectrumMatrix = new ComplexMatrix(Width, Height, true);
             var array = new List<IndexsValue>();
 
             double sumEnergy = 0;
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Height; j++)
             {
-                // Подсчёт суммарной энергии.
-                sumEnergy += SpectrumImage.Matrix[i][j].Magnitude;
+                sumEnergy += SpectrumMatrix.Matrix[i][j].Magnitude;
 
-                FilteredSpectrumImage.Matrix[i][j] = SpectrumImage.Matrix[i][j];
+                FilteredSpectrumMatrix.Matrix[i][j] = SpectrumMatrix.Matrix[i][j];
                 // Запись всех точек спектра в List.
-                array.Add(new IndexsValue(i, j, SpectrumImage.Matrix[i][j].Magnitude));
+                array.Add(new IndexsValue(i, j, SpectrumMatrix.Matrix[i][j].Magnitude));
             }
 
             // Подсчёт пороговой энергии.
@@ -177,32 +199,32 @@ namespace ImageSpectrum
 
             // Зануление отсекаемых точек энергий на спектре. 
             foreach (var p in points)
-                FilteredSpectrumImage.Matrix[p.X][p.Y] = 0;
+                FilteredSpectrumMatrix.Matrix[p.X][p.Y] = 0;
         }
 
         public void FilteredSpectrumCircleCutoff(double rCutoff)
         {
             var halfWidth = Width >> 1;
             var halfHeight = Height >> 1;
-            
-            FilteredSpectrumImage = new MatrixImage(Width, Height, true);
+
+            FilteredSpectrumMatrix = new ComplexMatrix(Width, Height, true);
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Height; j++)
             {
                 if (Math.Pow(halfWidth - i, 2) + Math.Pow(halfHeight - j, 2) <= rCutoff * rCutoff)
-                    FilteredSpectrumImage.Matrix[i][j] = SpectrumImage.Matrix[i][j];
-                else FilteredSpectrumImage.Matrix[i][j] = Complex.Zero;
+                    FilteredSpectrumMatrix.Matrix[i][j] = SpectrumMatrix.Matrix[i][j];
+                else FilteredSpectrumMatrix.Matrix[i][j] = Complex.Zero;
             }
         }
 
         /// <summary>
         /// Восстановление изображения из спектра.
         /// </summary>
-        /// <param name="isNoiseImage"></param>
+        /// <param name="isNoiseImage">Есть шум?</param>
         public void RestoringImage(bool isNoiseImage = false)
         {
-            if (isNoiseImage) RestoreImage = FFT.FFT_2D(FilteredSpectrumImage, false);
-            else RestoreImage = FFT.FFT_2D(SpectrumImage, false);
+            if (isNoiseImage) RestoredMatrix = Fourier.FFT_2D(FilteredSpectrumMatrix, false);
+            else RestoredMatrix = Fourier.FFT_2D(SpectrumMatrix, false);
         }
 
         /// <summary>
@@ -211,7 +233,7 @@ namespace ImageSpectrum
         /// <param name="matrix1">Первая матрица.</param>
         /// <param name="matrix2">Вторая матрица.</param>
         /// <returns></returns>
-        public static double GetStandardDeviation(MatrixImage matrix1, MatrixImage matrix2)
+        public static double GetStandardDeviation(ComplexMatrix matrix1, ComplexMatrix matrix2)
         {
             if (matrix1.Width != matrix2.Width ||
                 matrix1.Height != matrix2.Height)
@@ -252,10 +274,10 @@ namespace ImageSpectrum
             return newBitmap;
         }
 
-        public static MatrixImage ZerosAdding(MatrixImage matrix)
+        public static ComplexMatrix ZerosAdding(ComplexMatrix complexMatrix)
         {
-            var width = matrix.Width;
-            var height = matrix.Height;
+            var width = complexMatrix.Width;
+            var height = complexMatrix.Height;
 
             for (var newWidth = 2;; newWidth *= 2)
                 if (newWidth > width)
@@ -271,18 +293,18 @@ namespace ImageSpectrum
                     break;
                 }
 
-            var newMatrix = new MatrixImage(width, height, matrix.IsSpectrum);
+            var newMatrix = new ComplexMatrix(width, height, complexMatrix.IsSpectrum);
             for (var i = 0; i < width; i++)
             for (var j = 0; j < height; j++)
             {
-                if (i < matrix.Width && j < matrix.Height)
-                    newMatrix.Matrix[i][j] = matrix.Matrix[i][j];
+                if (i < complexMatrix.Width && j < complexMatrix.Height)
+                    newMatrix.Matrix[i][j] = complexMatrix.Matrix[i][j];
                 else newMatrix.Matrix[i][j] = 0;
             }
 
             return newMatrix;
         }
-        
+
         /// <summary>
         /// Обрезание нулей у матрицы.
         /// </summary>
@@ -290,118 +312,14 @@ namespace ImageSpectrum
         /// <param name="oldWidth"></param>
         /// <param name="oldHeight"></param>
         /// <returns></returns>
-        public static MatrixImage ZerosCutoff(MatrixImage matrix, int oldWidth, int oldHeight)
+        public static ComplexMatrix ZerosCutoff(ComplexMatrix matrix, int oldWidth, int oldHeight)
         {
-            var newMatrix = new MatrixImage(oldWidth, oldHeight, matrix.IsSpectrum);
+            var newMatrix = new ComplexMatrix(oldWidth, oldHeight, matrix.IsSpectrum);
             for (var i = 0; i < oldWidth; i++)
             for (var j = 0; j < oldHeight; j++)
-                newMatrix.Matrix[i][j] = matrix.Matrix[i][j]; 
+                newMatrix.Matrix[i][j] = matrix.Matrix[i][j];
 
             return newMatrix;
-        }
-    }
-
-    public struct MatrixImage
-    {
-        public int Width => Matrix.Length;
-        public int Height => Matrix[0].Length;
-
-        public Complex[][] Matrix;
-        public bool IsSpectrum;
-
-        /// <summary>
-        /// Конструктор. Инициализирует MatrixImage с указанным размером.
-        /// </summary>
-        /// <param name="width">Ширина</param>
-        /// <param name="height">Спектр</param>
-        /// <param name="isSpectrum">Является спектром?</param>
-        public MatrixImage(int width, int height, bool isSpectrum = false)
-        {
-            IsSpectrum = isSpectrum;
-            Matrix = new Complex[width][];
-            for (var i = 0; i < width; i++)
-                Matrix[i] = new Complex[height];
-        }
-
-        /// <summary>
-        /// Конструктор. Создаёт из bitmap.
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <param name="isSpectrum"></param>
-        public MatrixImage(Bitmap bitmap, bool isSpectrum = false)
-        {
-            IsSpectrum = isSpectrum;
-            Matrix = new Complex[bitmap.Width][];
-            for (var i = 0; i < Width; i++)
-            {
-                Matrix[i] = new Complex[bitmap.Height];
-                for (var j = 0; j < Height; j++)
-                    Matrix[i][j] = bitmap.GetPixel(i, j).R;
-            }
-        }
-
-        /// <summary>
-        /// Матрица в виде формате Bitmap. 
-        /// </summary>
-        public Bitmap Bitmap
-        {
-            get
-            {
-                var bmp = new Bitmap(Width, Height);
-                var matRgb = MatrixRgb;
-
-                for (var i = 0; i < Width; i++)
-                for (var j = 0; j < Height; j++)
-                    bmp.SetPixel(i, j, Color.FromArgb(matRgb[i][j], matRgb[i][j], matRgb[i][j]));
-
-                return bmp;
-            }
-        }
-
-        /// <summary>
-        /// Отнормализованная матрица со значенияими в пределах от 0 до 255.  
-        /// </summary>
-        public byte[][] MatrixRgb
-        {
-            get
-            {
-                double max = 0;
-                for (var i = 0; i < Width; i++)
-                    if (Matrix[i].Max(j => j.Magnitude) > max)
-                        max = Matrix[i].Max(j => j.Magnitude);
-
-                var normMatrix = new double[Width][];
-                var matrixRgb = new byte[Width][];
-                for (var i = 0; i < Width; i++)
-                {
-                    normMatrix[i] = new double[Height];
-                    matrixRgb[i] = new byte[Height];
-                    for (var j = 0; j < Height; j++)
-                        normMatrix[i][j] = Matrix[i][j].Magnitude / max * 255;
-                }
-
-                if (!IsSpectrum)
-                    for (var i = 0; i < Width; i++)
-                    for (var j = 0; j < Height; j++)
-                        matrixRgb[i][j] = (byte)normMatrix[i][j];
-                else
-                {
-                    double logMax = 0;
-                    for (var i = 0; i < Width; i++)
-                    for (var j = 0; j < Height; j++)
-                    {
-                        var value = Math.Sqrt(Math.Log(1 + normMatrix[i][j]));
-                        if (value > logMax)
-                            logMax = value;
-                    }
-
-                    for (var i = 0; i < Width; i++)
-                    for (var j = 0; j < Height; j++)
-                        matrixRgb[i][j] = (byte)(Math.Sqrt(Math.Log(1 + normMatrix[i][j])) / logMax * 255);
-                }
-
-                return matrixRgb;
-            }
         }
     }
 

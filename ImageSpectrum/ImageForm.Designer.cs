@@ -51,11 +51,13 @@
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(536, 536);
 			this.Controls.Add(this.pictBox_Image);
+			this.MaximizeBox = false;
 			this.Name = "ImageForm";
 			this.Text = "ImageForm";
 			((System.ComponentModel.ISupportInitialize)(this.pictBox_Image)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
+
 		}
 
 		#endregion

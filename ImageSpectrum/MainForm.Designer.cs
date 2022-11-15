@@ -927,7 +927,7 @@
 			this.Location = new System.Drawing.Point(15, 15);
 			this.MaximizeBox = false;
 			this.Name = "MainForm";
-			this.Text = "ИТФИ ННГУ | Обработка изображения";
+			this.Text = "ИСИТ ННГУ | Обработка изображения";
 			groupBox_paramsDome3.ResumeLayout(false);
 			groupBox_paramsDome3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).EndInit();

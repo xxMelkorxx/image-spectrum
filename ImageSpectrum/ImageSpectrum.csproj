@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexMatrix.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,7 +56,7 @@
       <DependentUpon>ImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageProcessing.cs" />
-    <Compile Include="FFT.cs" />
+    <Compile Include="Fourier.cs" />
     <Compile Include="Interpolation.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
