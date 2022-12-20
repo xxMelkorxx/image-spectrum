@@ -21,8 +21,8 @@ namespace ImageSpectrum
             var size = frame.Length;
 
             var arg = direct ? -2 * Math.PI / size : 2 * Math.PI / size;
-			var omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
-			var omega = Complex.One;
+            var omegaPowBase = new Complex(Math.Cos(arg), Math.Sin(arg));
+            var omega = Complex.One;
             var spectrum = new Complex[size];
 
             for (var j = 0; j < halfSize; j++)

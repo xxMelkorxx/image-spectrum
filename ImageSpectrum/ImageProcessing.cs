@@ -227,39 +227,37 @@ namespace ImageSpectrum
             else RestoredMatrix = Fourier.FFT_2D(SpectrumMatrix, false);
         }
 
-        /// <summary>
-        /// Подсчёт среднеквадратичного отклонения между двумя матрицами.
-        /// </summary>
-        /// <param name="matrix1">Первая матрица.</param>
-        /// <param name="matrix2">Вторая матрица.</param>
-        /// <returns></returns>
-        public static double GetStandardDeviation(ComplexMatrix matrix1, ComplexMatrix matrix2)
-        {
-            if (matrix1.Width != matrix2.Width ||
-                matrix1.Height != matrix2.Height)
-                return 0;
+		/// <summary>
+		/// Подсчёт среднеквадратичного отклонения между двумя матрицами.
+		/// </summary>
+		/// <param name="m1">Первая матрица.</param>
+		/// <param name="m2">Вторая матрица.</param>
+		/// <returns></returns>
+		public static double GetStandardDeviation(ComplexMatrix m1, ComplexMatrix m2)
+		{
+			if (m1.Width != m2.Width ||
+				m1.Height != m2.Height)
+				return 0;
 
-            var width = matrix1.Width;
-            var height = matrix1.Height;
-            double sumUp = 0, sumDown = 0;
-            for (var i = 0; i < width; i++)
-            for (var j = 0; j < height; j++)
-                sumUp += (matrix1.Matrix[i][j].Magnitude - matrix2.Matrix[i][j].Magnitude) *
-                         (matrix1.Matrix[i][j].Magnitude - matrix2.Matrix[i][j].Magnitude);
+			var w = m1.Width;
+			var h = m1.Height;
+			double sumUp = 0, sumDown = 0;
+			for (var i = 0; i < w; i++)
+				for (var j = 0; j < h; j++)
+				{
+					sumUp += (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude) * (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude);
+					sumDown += m1.Matrix[i][j].Magnitude * m2.Matrix[i][j].Magnitude;
+				}
 
-            for (var i = 0; i < width; i++)
-            for (var j = 0; j < height; j++)
-                sumDown += matrix1.Matrix[i][j].Magnitude * matrix2.Matrix[i][j].Magnitude;
+			return sumUp / sumDown;
+		}
 
-            return sumUp / sumDown;
-        }
-
-        /// <summary>
-        /// Конвертация изображения в полутоновое.
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        public static Bitmap ConvertToHalftone(Bitmap bitmap)
+		/// <summary>
+		/// Конвертация изображения в полутоновое.
+		/// </summary>
+		/// <param name="bitmap"></param>
+		/// <returns></returns>
+		public static Bitmap ConvertToHalftone(Bitmap bitmap)
         {
             var newBitmap = new Bitmap(bitmap.Width, bitmap.Height);
 
