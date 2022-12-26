@@ -22,16 +22,16 @@ namespace ImageSpectrum
         /// <param name="e"></param>
         private void OnClickButtonGenerateImage(object sender, EventArgs e)
         {
-            var width = (int)numUpDown_width.Value;
-            var height = (int)numUpDown_height.Value;
+            var width = (int)nuD_width.Value;
+            var height = (int)nuD_height.Value;
 
             _imageProcessing = new ImageProcessing(width, height);
             _imageProcessing.CreateGaussImage(
-                new[] { (double)numUpDown_a1.Value, (double)numUpDown_a2.Value, (double)numUpDown_a3.Value },
-                new[] { (double)numUpDown_sigmaX1.Value, (double)numUpDown_sigmaX2.Value, (double)numUpDown_sigmaX3.Value },
-                new[] { (double)numUpDown_sigmaY1.Value, (double)numUpDown_sigmaY2.Value, (double)numUpDown_sigmaY3.Value },
-                new[] { (double)numUpDown_shiftX1.Value, (double)numUpDown_shiftX2.Value, (double)numUpDown_shiftX3.Value },
-                new[] { (double)numUpDown_shiftY1.Value, (double)numUpDown_shiftY2.Value, (double)numUpDown_shiftY3.Value }
+                new[] { (double)nuD_a1.Value, (double)nuD_a2.Value, (double)nuD_a3.Value },
+                new[] { (double)nuD_sigmaX1.Value, (double)nuD_sigmaX2.Value, (double)nuD_sigmaX3.Value },
+                new[] { (double)nuD_sigmaY1.Value, (double)nuD_sigmaY2.Value, (double)nuD_sigmaY3.Value },
+                new[] { (double)nuD_shiftX1.Value, (double)nuD_shiftX2.Value, (double)nuD_shiftX3.Value },
+                new[] { (double)nuD_shiftY1.Value, (double)nuD_shiftY2.Value, (double)nuD_shiftY3.Value }
             );
 
             _isLoad = false;
@@ -64,8 +64,8 @@ namespace ImageSpectrum
                         _imageProcessing = new ImageProcessing(_initImage);
                     else if (rB_bilinearInterpolation.Checked)
                     {
-                        var width = (int)numUpDown_width.Value;
-                        var height = (int)numUpDown_height.Value;
+                        var width = (int)nuD_width.Value;
+                        var height = (int)nuD_height.Value;
                         _imageProcessing = new ImageProcessing(_initImage, width, height);
                     }
 

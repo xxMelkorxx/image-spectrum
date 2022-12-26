@@ -57,23 +57,23 @@
 			System.Windows.Forms.GroupBox groupBox_paramFiltered;
 			System.Windows.Forms.Label label_radiusCutoff;
 			System.Windows.Forms.GroupBox groupBox_AdditionImage;
-			this.numUpDown_sigmaY3 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftY3 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftX3 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_sigmaX3 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_a3 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_sigmaY2 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftY2 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftX2 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_sigmaX2 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_a2 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_sigmaY1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftY1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_shiftX1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_sigmaX1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_a1 = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_height = new System.Windows.Forms.NumericUpDown();
-			this.numUpDown_width = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaY3 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftY3 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftX3 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaX3 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_a3 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaY2 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftY2 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftX2 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaX2 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_a2 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaY1 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftY1 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_shiftX1 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_sigmaX1 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_a1 = new System.Windows.Forms.NumericUpDown();
+			this.nuD_height = new System.Windows.Forms.NumericUpDown();
+			this.nuD_width = new System.Windows.Forms.NumericUpDown();
 			this.textBox_SkoInitAndNoise = new System.Windows.Forms.TextBox();
 			this.textBox_SkoInitAndRestore = new System.Windows.Forms.TextBox();
 			this.numUpDown_radiusCutoff = new System.Windows.Forms.NumericUpDown();
@@ -122,26 +122,26 @@
 			label_radiusCutoff = new System.Windows.Forms.Label();
 			groupBox_AdditionImage = new System.Windows.Forms.GroupBox();
 			groupBox_paramsDome3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a3)).BeginInit();
 			groupBox_paramsDome2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a2)).BeginInit();
 			groupBox_paramsDome1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a1)).BeginInit();
 			groupBox_paramImage.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_height)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_width)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_height)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_width)).BeginInit();
 			groupBox_Sko.SuspendLayout();
 			groupBox_paramFiltered.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numUpDown_radiusCutoff)).BeginInit();
@@ -154,15 +154,15 @@
 			// groupBox_paramsDome3
 			// 
 			groupBox_paramsDome3.Controls.Add(label_sigmaY3);
-			groupBox_paramsDome3.Controls.Add(this.numUpDown_sigmaY3);
+			groupBox_paramsDome3.Controls.Add(this.nuD_sigmaY3);
 			groupBox_paramsDome3.Controls.Add(label_shiftY3);
-			groupBox_paramsDome3.Controls.Add(this.numUpDown_shiftY3);
+			groupBox_paramsDome3.Controls.Add(this.nuD_shiftY3);
 			groupBox_paramsDome3.Controls.Add(label_shiftX3);
-			groupBox_paramsDome3.Controls.Add(this.numUpDown_shiftX3);
+			groupBox_paramsDome3.Controls.Add(this.nuD_shiftX3);
 			groupBox_paramsDome3.Controls.Add(label_sigmaX3);
-			groupBox_paramsDome3.Controls.Add(this.numUpDown_sigmaX3);
+			groupBox_paramsDome3.Controls.Add(this.nuD_sigmaX3);
 			groupBox_paramsDome3.Controls.Add(label_a3);
-			groupBox_paramsDome3.Controls.Add(this.numUpDown_a3);
+			groupBox_paramsDome3.Controls.Add(this.nuD_a3);
 			groupBox_paramsDome3.Location = new System.Drawing.Point(406, 98);
 			groupBox_paramsDome3.Name = "groupBox_paramsDome3";
 			groupBox_paramsDome3.Size = new System.Drawing.Size(191, 160);
@@ -182,17 +182,17 @@
 			// 
 			// numUpDown_sigmaY3
 			// 
-			this.numUpDown_sigmaY3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaY3.DecimalPlaces = 1;
-			this.numUpDown_sigmaY3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaY3.Location = new System.Drawing.Point(104, 76);
-			this.numUpDown_sigmaY3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaY3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaY3.Name = "numUpDown_sigmaY3";
-			this.numUpDown_sigmaY3.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaY3.TabIndex = 13;
-			this.numUpDown_sigmaY3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaY3.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaY3.DecimalPlaces = 1;
+			this.nuD_sigmaY3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY3.Location = new System.Drawing.Point(104, 76);
+			this.nuD_sigmaY3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaY3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaY3.Name = "nuD_sigmaY3";
+			this.nuD_sigmaY3.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaY3.TabIndex = 13;
+			this.nuD_sigmaY3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaY3.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_shiftY3
 			// 
@@ -206,15 +206,15 @@
 			// 
 			// numUpDown_shiftY3
 			// 
-			this.numUpDown_shiftY3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftY3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftY3.Location = new System.Drawing.Point(104, 132);
-			this.numUpDown_shiftY3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftY3.Name = "numUpDown_shiftY3";
-			this.numUpDown_shiftY3.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftY3.TabIndex = 11;
-			this.numUpDown_shiftY3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftY3.Value = new decimal(new int[] { 384, 0, 0, 0 });
+			this.nuD_shiftY3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftY3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftY3.Location = new System.Drawing.Point(104, 132);
+			this.nuD_shiftY3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftY3.Name = "nuD_shiftY3";
+			this.nuD_shiftY3.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftY3.TabIndex = 11;
+			this.nuD_shiftY3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftY3.Value = new decimal(new int[] { 384, 0, 0, 0 });
 			// 
 			// label_shiftX3
 			// 
@@ -228,15 +228,15 @@
 			// 
 			// numUpDown_shiftX3
 			// 
-			this.numUpDown_shiftX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftX3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftX3.Location = new System.Drawing.Point(104, 104);
-			this.numUpDown_shiftX3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftX3.Name = "numUpDown_shiftX3";
-			this.numUpDown_shiftX3.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftX3.TabIndex = 9;
-			this.numUpDown_shiftX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftX3.Value = new decimal(new int[] { 384, 0, 0, 0 });
+			this.nuD_shiftX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftX3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftX3.Location = new System.Drawing.Point(104, 104);
+			this.nuD_shiftX3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftX3.Name = "nuD_shiftX3";
+			this.nuD_shiftX3.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftX3.TabIndex = 9;
+			this.nuD_shiftX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftX3.Value = new decimal(new int[] { 384, 0, 0, 0 });
 			// 
 			// label_sigmaX3
 			// 
@@ -250,17 +250,17 @@
 			// 
 			// numUpDown_sigmaX3
 			// 
-			this.numUpDown_sigmaX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaX3.DecimalPlaces = 1;
-			this.numUpDown_sigmaX3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaX3.Location = new System.Drawing.Point(104, 48);
-			this.numUpDown_sigmaX3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaX3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaX3.Name = "numUpDown_sigmaX3";
-			this.numUpDown_sigmaX3.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaX3.TabIndex = 7;
-			this.numUpDown_sigmaX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaX3.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaX3.DecimalPlaces = 1;
+			this.nuD_sigmaX3.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX3.Location = new System.Drawing.Point(104, 48);
+			this.nuD_sigmaX3.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaX3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaX3.Name = "nuD_sigmaX3";
+			this.nuD_sigmaX3.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaX3.TabIndex = 7;
+			this.nuD_sigmaX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaX3.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_a3
 			// 
@@ -274,27 +274,27 @@
 			// 
 			// numUpDown_a3
 			// 
-			this.numUpDown_a3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_a3.Location = new System.Drawing.Point(104, 20);
-			this.numUpDown_a3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_a3.Name = "numUpDown_a3";
-			this.numUpDown_a3.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_a3.TabIndex = 5;
-			this.numUpDown_a3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_a3.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_a3.Location = new System.Drawing.Point(104, 20);
+			this.nuD_a3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a3.Name = "nuD_a3";
+			this.nuD_a3.Size = new System.Drawing.Size(80, 22);
+			this.nuD_a3.TabIndex = 5;
+			this.nuD_a3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_a3.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// groupBox_paramsDome2
 			// 
 			groupBox_paramsDome2.Controls.Add(label_sigmaY2);
-			groupBox_paramsDome2.Controls.Add(this.numUpDown_sigmaY2);
+			groupBox_paramsDome2.Controls.Add(this.nuD_sigmaY2);
 			groupBox_paramsDome2.Controls.Add(label_shiftY2);
-			groupBox_paramsDome2.Controls.Add(this.numUpDown_shiftY2);
+			groupBox_paramsDome2.Controls.Add(this.nuD_shiftY2);
 			groupBox_paramsDome2.Controls.Add(label_shiftX2);
-			groupBox_paramsDome2.Controls.Add(this.numUpDown_shiftX2);
+			groupBox_paramsDome2.Controls.Add(this.nuD_shiftX2);
 			groupBox_paramsDome2.Controls.Add(label_sigmaX2);
-			groupBox_paramsDome2.Controls.Add(this.numUpDown_sigmaX2);
+			groupBox_paramsDome2.Controls.Add(this.nuD_sigmaX2);
 			groupBox_paramsDome2.Controls.Add(label_a2);
-			groupBox_paramsDome2.Controls.Add(this.numUpDown_a2);
+			groupBox_paramsDome2.Controls.Add(this.nuD_a2);
 			groupBox_paramsDome2.Location = new System.Drawing.Point(209, 97);
 			groupBox_paramsDome2.Name = "groupBox_paramsDome2";
 			groupBox_paramsDome2.Size = new System.Drawing.Size(191, 161);
@@ -314,17 +314,17 @@
 			// 
 			// numUpDown_sigmaY2
 			// 
-			this.numUpDown_sigmaY2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaY2.DecimalPlaces = 1;
-			this.numUpDown_sigmaY2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaY2.Location = new System.Drawing.Point(104, 76);
-			this.numUpDown_sigmaY2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaY2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaY2.Name = "numUpDown_sigmaY2";
-			this.numUpDown_sigmaY2.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaY2.TabIndex = 13;
-			this.numUpDown_sigmaY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaY2.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaY2.DecimalPlaces = 1;
+			this.nuD_sigmaY2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY2.Location = new System.Drawing.Point(104, 76);
+			this.nuD_sigmaY2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaY2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaY2.Name = "nuD_sigmaY2";
+			this.nuD_sigmaY2.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaY2.TabIndex = 13;
+			this.nuD_sigmaY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaY2.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_shiftY2
 			// 
@@ -338,15 +338,15 @@
 			// 
 			// numUpDown_shiftY2
 			// 
-			this.numUpDown_shiftY2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftY2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftY2.Location = new System.Drawing.Point(104, 132);
-			this.numUpDown_shiftY2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftY2.Name = "numUpDown_shiftY2";
-			this.numUpDown_shiftY2.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftY2.TabIndex = 11;
-			this.numUpDown_shiftY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftY2.Value = new decimal(new int[] { 384, 0, 0, 0 });
+			this.nuD_shiftY2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftY2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftY2.Location = new System.Drawing.Point(104, 132);
+			this.nuD_shiftY2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftY2.Name = "nuD_shiftY2";
+			this.nuD_shiftY2.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftY2.TabIndex = 11;
+			this.nuD_shiftY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftY2.Value = new decimal(new int[] { 384, 0, 0, 0 });
 			// 
 			// label_shiftX2
 			// 
@@ -360,15 +360,15 @@
 			// 
 			// numUpDown_shiftX2
 			// 
-			this.numUpDown_shiftX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftX2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftX2.Location = new System.Drawing.Point(104, 104);
-			this.numUpDown_shiftX2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftX2.Name = "numUpDown_shiftX2";
-			this.numUpDown_shiftX2.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftX2.TabIndex = 9;
-			this.numUpDown_shiftX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftX2.Value = new decimal(new int[] { 128, 0, 0, 0 });
+			this.nuD_shiftX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftX2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftX2.Location = new System.Drawing.Point(104, 104);
+			this.nuD_shiftX2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftX2.Name = "nuD_shiftX2";
+			this.nuD_shiftX2.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftX2.TabIndex = 9;
+			this.nuD_shiftX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftX2.Value = new decimal(new int[] { 128, 0, 0, 0 });
 			// 
 			// label_sigmaX2
 			// 
@@ -382,17 +382,17 @@
 			// 
 			// numUpDown_sigmaX2
 			// 
-			this.numUpDown_sigmaX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaX2.DecimalPlaces = 1;
-			this.numUpDown_sigmaX2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaX2.Location = new System.Drawing.Point(104, 48);
-			this.numUpDown_sigmaX2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaX2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaX2.Name = "numUpDown_sigmaX2";
-			this.numUpDown_sigmaX2.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaX2.TabIndex = 7;
-			this.numUpDown_sigmaX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaX2.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaX2.DecimalPlaces = 1;
+			this.nuD_sigmaX2.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX2.Location = new System.Drawing.Point(104, 48);
+			this.nuD_sigmaX2.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaX2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaX2.Name = "nuD_sigmaX2";
+			this.nuD_sigmaX2.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaX2.TabIndex = 7;
+			this.nuD_sigmaX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaX2.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_a2
 			// 
@@ -406,27 +406,27 @@
 			// 
 			// numUpDown_a2
 			// 
-			this.numUpDown_a2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_a2.Location = new System.Drawing.Point(104, 20);
-			this.numUpDown_a2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_a2.Name = "numUpDown_a2";
-			this.numUpDown_a2.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_a2.TabIndex = 5;
-			this.numUpDown_a2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_a2.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_a2.Location = new System.Drawing.Point(104, 20);
+			this.nuD_a2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a2.Name = "nuD_a2";
+			this.nuD_a2.Size = new System.Drawing.Size(80, 22);
+			this.nuD_a2.TabIndex = 5;
+			this.nuD_a2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_a2.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// groupBox_paramsDome1
 			// 
 			groupBox_paramsDome1.Controls.Add(label_sigmaY1);
-			groupBox_paramsDome1.Controls.Add(this.numUpDown_sigmaY1);
+			groupBox_paramsDome1.Controls.Add(this.nuD_sigmaY1);
 			groupBox_paramsDome1.Controls.Add(label_shiftY1);
-			groupBox_paramsDome1.Controls.Add(this.numUpDown_shiftY1);
+			groupBox_paramsDome1.Controls.Add(this.nuD_shiftY1);
 			groupBox_paramsDome1.Controls.Add(label_shiftX1);
-			groupBox_paramsDome1.Controls.Add(this.numUpDown_shiftX1);
+			groupBox_paramsDome1.Controls.Add(this.nuD_shiftX1);
 			groupBox_paramsDome1.Controls.Add(label_sigmaX1);
-			groupBox_paramsDome1.Controls.Add(this.numUpDown_sigmaX1);
+			groupBox_paramsDome1.Controls.Add(this.nuD_sigmaX1);
 			groupBox_paramsDome1.Controls.Add(label_a1);
-			groupBox_paramsDome1.Controls.Add(this.numUpDown_a1);
+			groupBox_paramsDome1.Controls.Add(this.nuD_a1);
 			groupBox_paramsDome1.Location = new System.Drawing.Point(12, 97);
 			groupBox_paramsDome1.Name = "groupBox_paramsDome1";
 			groupBox_paramsDome1.Size = new System.Drawing.Size(191, 161);
@@ -446,17 +446,17 @@
 			// 
 			// numUpDown_sigmaY1
 			// 
-			this.numUpDown_sigmaY1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaY1.DecimalPlaces = 1;
-			this.numUpDown_sigmaY1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaY1.Location = new System.Drawing.Point(104, 76);
-			this.numUpDown_sigmaY1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaY1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaY1.Name = "numUpDown_sigmaY1";
-			this.numUpDown_sigmaY1.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaY1.TabIndex = 13;
-			this.numUpDown_sigmaY1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaY1.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaY1.DecimalPlaces = 1;
+			this.nuD_sigmaY1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaY1.Location = new System.Drawing.Point(104, 76);
+			this.nuD_sigmaY1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaY1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaY1.Name = "nuD_sigmaY1";
+			this.nuD_sigmaY1.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaY1.TabIndex = 13;
+			this.nuD_sigmaY1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaY1.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_shiftY1
 			// 
@@ -470,15 +470,15 @@
 			// 
 			// numUpDown_shiftY1
 			// 
-			this.numUpDown_shiftY1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftY1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftY1.Location = new System.Drawing.Point(104, 132);
-			this.numUpDown_shiftY1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftY1.Name = "numUpDown_shiftY1";
-			this.numUpDown_shiftY1.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftY1.TabIndex = 11;
-			this.numUpDown_shiftY1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftY1.Value = new decimal(new int[] { 128, 0, 0, 0 });
+			this.nuD_shiftY1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftY1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftY1.Location = new System.Drawing.Point(104, 132);
+			this.nuD_shiftY1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftY1.Name = "nuD_shiftY1";
+			this.nuD_shiftY1.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftY1.TabIndex = 11;
+			this.nuD_shiftY1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftY1.Value = new decimal(new int[] { 128, 0, 0, 0 });
 			// 
 			// label_shiftX1
 			// 
@@ -492,15 +492,15 @@
 			// 
 			// numUpDown_shiftX1
 			// 
-			this.numUpDown_shiftX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_shiftX1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_shiftX1.Location = new System.Drawing.Point(104, 104);
-			this.numUpDown_shiftX1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_shiftX1.Name = "numUpDown_shiftX1";
-			this.numUpDown_shiftX1.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_shiftX1.TabIndex = 9;
-			this.numUpDown_shiftX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_shiftX1.Value = new decimal(new int[] { 256, 0, 0, 0 });
+			this.nuD_shiftX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_shiftX1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_shiftX1.Location = new System.Drawing.Point(104, 104);
+			this.nuD_shiftX1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_shiftX1.Name = "nuD_shiftX1";
+			this.nuD_shiftX1.Size = new System.Drawing.Size(80, 22);
+			this.nuD_shiftX1.TabIndex = 9;
+			this.nuD_shiftX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_shiftX1.Value = new decimal(new int[] { 256, 0, 0, 0 });
 			// 
 			// label_sigmaX1
 			// 
@@ -514,17 +514,17 @@
 			// 
 			// numUpDown_sigmaX1
 			// 
-			this.numUpDown_sigmaX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_sigmaX1.DecimalPlaces = 1;
-			this.numUpDown_sigmaX1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-			this.numUpDown_sigmaX1.Location = new System.Drawing.Point(104, 48);
-			this.numUpDown_sigmaX1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_sigmaX1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_sigmaX1.Name = "numUpDown_sigmaX1";
-			this.numUpDown_sigmaX1.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_sigmaX1.TabIndex = 7;
-			this.numUpDown_sigmaX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_sigmaX1.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_sigmaX1.DecimalPlaces = 1;
+			this.nuD_sigmaX1.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+			this.nuD_sigmaX1.Location = new System.Drawing.Point(104, 48);
+			this.nuD_sigmaX1.Maximum = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_sigmaX1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_sigmaX1.Name = "nuD_sigmaX1";
+			this.nuD_sigmaX1.Size = new System.Drawing.Size(80, 22);
+			this.nuD_sigmaX1.TabIndex = 7;
+			this.nuD_sigmaX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_sigmaX1.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// label_a1
 			// 
@@ -538,14 +538,14 @@
 			// 
 			// numUpDown_a1
 			// 
-			this.numUpDown_a1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_a1.Location = new System.Drawing.Point(104, 20);
-			this.numUpDown_a1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			this.numUpDown_a1.Name = "numUpDown_a1";
-			this.numUpDown_a1.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_a1.TabIndex = 5;
-			this.numUpDown_a1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_a1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_a1.Location = new System.Drawing.Point(104, 20);
+			this.nuD_a1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			this.nuD_a1.Name = "nuD_a1";
+			this.nuD_a1.Size = new System.Drawing.Size(80, 22);
+			this.nuD_a1.TabIndex = 5;
+			this.nuD_a1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_a1.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// label_SNR
 			// 
@@ -560,9 +560,9 @@
 			// groupBox_paramImage
 			// 
 			groupBox_paramImage.Controls.Add(label_Height);
-			groupBox_paramImage.Controls.Add(this.numUpDown_height);
+			groupBox_paramImage.Controls.Add(this.nuD_height);
 			groupBox_paramImage.Controls.Add(label_Width);
-			groupBox_paramImage.Controls.Add(this.numUpDown_width);
+			groupBox_paramImage.Controls.Add(this.nuD_width);
 			groupBox_paramImage.Location = new System.Drawing.Point(12, 12);
 			groupBox_paramImage.Name = "groupBox_paramImage";
 			groupBox_paramImage.Size = new System.Drawing.Size(191, 79);
@@ -582,16 +582,16 @@
 			// 
 			// numUpDown_height
 			// 
-			this.numUpDown_height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_height.Increment = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_height.Location = new System.Drawing.Point(104, 48);
-			this.numUpDown_height.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
-			this.numUpDown_height.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-			this.numUpDown_height.Name = "numUpDown_height";
-			this.numUpDown_height.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_height.TabIndex = 11;
-			this.numUpDown_height.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_height.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_height.Increment = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_height.Location = new System.Drawing.Point(104, 48);
+			this.nuD_height.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+			this.nuD_height.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+			this.nuD_height.Name = "nuD_height";
+			this.nuD_height.Size = new System.Drawing.Size(80, 22);
+			this.nuD_height.TabIndex = 11;
+			this.nuD_height.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_height.Value = new decimal(new int[] { 512, 0, 0, 0 });
 			// 
 			// label_Width
 			// 
@@ -605,16 +605,16 @@
 			// 
 			// numUpDown_width
 			// 
-			this.numUpDown_width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.numUpDown_width.Increment = new decimal(new int[] { 512, 0, 0, 0 });
-			this.numUpDown_width.Location = new System.Drawing.Point(104, 20);
-			this.numUpDown_width.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
-			this.numUpDown_width.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-			this.numUpDown_width.Name = "numUpDown_width";
-			this.numUpDown_width.Size = new System.Drawing.Size(80, 22);
-			this.numUpDown_width.TabIndex = 9;
-			this.numUpDown_width.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.numUpDown_width.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nuD_width.Increment = new decimal(new int[] { 512, 0, 0, 0 });
+			this.nuD_width.Location = new System.Drawing.Point(104, 20);
+			this.nuD_width.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+			this.nuD_width.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+			this.nuD_width.Name = "nuD_width";
+			this.nuD_width.Size = new System.Drawing.Size(80, 22);
+			this.nuD_width.TabIndex = 9;
+			this.nuD_width.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nuD_width.Value = new decimal(new int[] { 512, 0, 0, 0 });
 			// 
 			// groupBox_Sko
 			// 
@@ -930,29 +930,29 @@
 			this.Text = "ИСИТ ННГУ | Обработка изображения";
 			groupBox_paramsDome3.ResumeLayout(false);
 			groupBox_paramsDome3.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a3)).EndInit();
 			groupBox_paramsDome2.ResumeLayout(false);
 			groupBox_paramsDome2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a2)).EndInit();
 			groupBox_paramsDome1.ResumeLayout(false);
 			groupBox_paramsDome1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaY1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftY1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_shiftX1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_sigmaX1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_a1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaY1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftY1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_shiftX1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_sigmaX1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_a1)).EndInit();
 			groupBox_paramImage.ResumeLayout(false);
 			groupBox_paramImage.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_height)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numUpDown_width)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_height)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nuD_width)).EndInit();
 			groupBox_Sko.ResumeLayout(false);
 			groupBox_Sko.PerformLayout();
 			groupBox_paramFiltered.ResumeLayout(false);
@@ -987,29 +987,29 @@
 		private System.Windows.Forms.Button button_GenerateImage;
 
 		#endregion
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaY3;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftY3;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftX3;
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaX3;
-		private System.Windows.Forms.NumericUpDown numUpDown_a3;
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaY2;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftY2;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftX2;
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaX2;
-		private System.Windows.Forms.NumericUpDown numUpDown_a2;
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaY1;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftY1;
-		private System.Windows.Forms.NumericUpDown numUpDown_shiftX1;
-		private System.Windows.Forms.NumericUpDown numUpDown_sigmaX1;
-		private System.Windows.Forms.NumericUpDown numUpDown_a1;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaY3;
+		private System.Windows.Forms.NumericUpDown nuD_shiftY3;
+		private System.Windows.Forms.NumericUpDown nuD_shiftX3;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaX3;
+		private System.Windows.Forms.NumericUpDown nuD_a3;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaY2;
+		private System.Windows.Forms.NumericUpDown nuD_shiftY2;
+		private System.Windows.Forms.NumericUpDown nuD_shiftX2;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaX2;
+		private System.Windows.Forms.NumericUpDown nuD_a2;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaY1;
+		private System.Windows.Forms.NumericUpDown nuD_shiftY1;
+		private System.Windows.Forms.NumericUpDown nuD_shiftX1;
+		private System.Windows.Forms.NumericUpDown nuD_sigmaX1;
+		private System.Windows.Forms.NumericUpDown nuD_a1;
 		private System.Windows.Forms.Button button_GetSpectrum;
 		private System.Windows.Forms.Button button_LoadImage;
 		private System.Windows.Forms.NumericUpDown numUpDown_snr;
 		private System.Windows.Forms.Button button_GetImage;
 		private System.Windows.Forms.Button button_GetNoiseImage;
 		private System.Windows.Forms.CheckBox checkBox_isNoise;
-		private System.Windows.Forms.NumericUpDown numUpDown_height;
-		private System.Windows.Forms.NumericUpDown numUpDown_width;
+		private System.Windows.Forms.NumericUpDown nuD_height;
+		private System.Windows.Forms.NumericUpDown nuD_width;
 	}
 }
 

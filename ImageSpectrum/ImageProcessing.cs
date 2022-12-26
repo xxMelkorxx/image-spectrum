@@ -20,7 +20,7 @@ namespace ImageSpectrum
         public ComplexMatrix SpectrumMatrix;
         public ComplexMatrix FilteredSpectrumMatrix;
         public ComplexMatrix RestoredMatrix;
-        
+
         public Bitmap InitImage;
 
         public Bitmap RestoredImage
@@ -34,14 +34,14 @@ namespace ImageSpectrum
                 return RestoredMatrix.GetBitmap();
             }
         }
-        
+
         private int Width => InitMatrix.Width;
         private int Height => InitMatrix.Height;
 
         private TypeInterpolation _typeInterpolation;
         private int _oldWidth;
         private int _oldHeight;
-        
+
         /// <summary>
         /// Конструктор.
         /// </summary>
@@ -114,7 +114,7 @@ namespace ImageSpectrum
             for (var j = 0; j < Height; j++)
             for (var k = 0; k < a.Length; k++)
                 InitMatrix.Matrix[i][j] += GaussFunction(i, j, a[k], sigmaX[k], sigmaY[k], shiftX[k], shiftY[k]);
-            
+
             InitImage = InitMatrix.GetBitmap();
         }
 
@@ -227,37 +227,37 @@ namespace ImageSpectrum
             else RestoredMatrix = Fourier.FFT_2D(SpectrumMatrix, false);
         }
 
-		/// <summary>
-		/// Подсчёт среднеквадратичного отклонения между двумя матрицами.
-		/// </summary>
-		/// <param name="m1">Первая матрица.</param>
-		/// <param name="m2">Вторая матрица.</param>
-		/// <returns></returns>
-		public static double GetStandardDeviation(ComplexMatrix m1, ComplexMatrix m2)
-		{
-			if (m1.Width != m2.Width ||
-				m1.Height != m2.Height)
-				return 0;
+        /// <summary>
+        /// Подсчёт среднеквадратичного отклонения между двумя матрицами.
+        /// </summary>
+        /// <param name="m1">Первая матрица.</param>
+        /// <param name="m2">Вторая матрица.</param>
+        /// <returns></returns>
+        public static double GetStandardDeviation(ComplexMatrix m1, ComplexMatrix m2)
+        {
+            if (m1.Width != m2.Width ||
+                m1.Height != m2.Height)
+                return 0;
 
-			var w = m1.Width;
-			var h = m1.Height;
-			double sumUp = 0, sumDown = 0;
-			for (var i = 0; i < w; i++)
-				for (var j = 0; j < h; j++)
-				{
-					sumUp += (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude) * (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude);
-					sumDown += m1.Matrix[i][j].Magnitude * m2.Matrix[i][j].Magnitude;
-				}
+            var w = m1.Width;
+            var h = m1.Height;
+            double sumUp = 0, sumDown = 0;
+            for (var i = 0; i < w; i++)
+            for (var j = 0; j < h; j++)
+            {
+                sumUp += (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude) * (m1.Matrix[i][j].Magnitude - m2.Matrix[i][j].Magnitude);
+                sumDown += m1.Matrix[i][j].Magnitude * m2.Matrix[i][j].Magnitude;
+            }
 
-			return sumUp / sumDown;
-		}
+            return sumUp / sumDown;
+        }
 
-		/// <summary>
-		/// Конвертация изображения в полутоновое.
-		/// </summary>
-		/// <param name="bitmap"></param>
-		/// <returns></returns>
-		public static Bitmap ConvertToHalftone(Bitmap bitmap)
+        /// <summary>
+        /// Конвертация изображения в полутоновое.
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
+        public static Bitmap ConvertToHalftone(Bitmap bitmap)
         {
             var newBitmap = new Bitmap(bitmap.Width, bitmap.Height);
 

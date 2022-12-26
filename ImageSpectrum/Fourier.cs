@@ -57,7 +57,7 @@ namespace ImageSpectrum
             var width = frame.Width;
             var height = frame.Height;
             var result = new ComplexMatrix(width, height, !frame.IsSpectrum);
-            
+
             if (!direct) frame = AngularTransform(frame);
             for (var i = 0; i < width; i++)
                 result.Matrix[i] = FFT(frame.Matrix[i], direct);
@@ -85,11 +85,11 @@ namespace ImageSpectrum
             var width = init.Width;
             var height = init.Height;
             var result = new ComplexMatrix(height, width, init.IsSpectrum);
-            
+
             for (var i = 0; i < height; i++)
             for (var j = 0; j < width; j++)
                 result.Matrix[i][j] = init.Matrix[j][i];
-            
+
             return result;
         }
 

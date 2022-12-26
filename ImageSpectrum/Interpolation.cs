@@ -56,13 +56,13 @@ namespace ImageSpectrum
             var coeffH = (float)originBmp.Height / newBmp.Height;
 
             for (var w = 0; w < newBmp.Width; w++)
-                for (var h = 0; h < newBmp.Height; h++)
-                {
-                    var oldW = (int)(w * coeffW);
-                    var oldH = (int)(h * coeffH);
-                    var clrPxl = originBmp.GetPixel(oldW, oldH);
-                    newBmp.SetPixel(w, h, clrPxl);
-                }
+            for (var h = 0; h < newBmp.Height; h++)
+            {
+                var oldW = (int)(w * coeffW);
+                var oldH = (int)(h * coeffH);
+                var clrPxl = originBmp.GetPixel(oldW, oldH);
+                newBmp.SetPixel(w, h, clrPxl);
+            }
 
             return newBmp;
         }
